@@ -33,12 +33,14 @@ public class TeamLeaderController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid TeamLeader teamLeader, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-
+        if(bindingResult.hasErrors()){
+            modelAndView.setViewName("registration");
+        }else{
             teamLeaderService.save(teamLeader);
-           // modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("teamLeader", new TeamLeader());
             modelAndView.setViewName("registration");
-
+        }
         return modelAndView;
 
     }
