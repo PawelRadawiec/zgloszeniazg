@@ -1,6 +1,9 @@
 package com.info.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "team_leader")
@@ -11,24 +14,38 @@ public class TeamLeader {
     private int id;
 
     @Column(name = "fiest_name")
+    @NotEmpty(message = "wprowadz wartosc")
     private String firstName;
 
     @Column(name = "last_name")
+    @NotEmpty(message = "wprowadz wartosc")
     private String lastName;
 
     @Column(name = "email")
+    @NotEmpty(message = "wprowadz wartosc")
     private String email;
 
     @Column(name = "team_name")
+    @NotEmpty(message = "wprowadz wartosc")
     private String teamName;
 
     @Column(name = "phone_number")
+    @NotEmpty(message = "wprowadz wartosc")
     private String phonenumber;
 
     @Column(name = "troops")
+    @NotEmpty(message = "wprowadz wartosc")
     private String troops;
 
-    
+    @Column(name = "password")
+    @Length(min = 5, message = "haslo za krotkie")
+    @NotEmpty(message = "wprowadz wartosc")
+    private String password;
+
+    @Column(name = "leader_role")
+    private String role;
+
+
     public TeamLeader(){}
 
 
@@ -87,5 +104,21 @@ public class TeamLeader {
 
     public void setTroops(String troops) {
         this.troops = troops;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
