@@ -48,6 +48,33 @@
 
                 <div class="form-group">
                     <div class="col-sm-9">
+                        <input type="text" th:field="*{teamName}" placeholder="Drużyna"
+                               class="form-control" /> <label
+                            th:if="${#fields.hasErrors('teamName')}" th:errors="*{teamName}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{phonenumber}" placeholder="Numer telefonu"
+                               class="form-control" /> <label
+                            th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{troops}" placeholder="Hufiec"
+                               class="form-control" /> <label
+                            th:if="${#fields.hasErrors('troops')}" th:errors="*{troops}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
                         <button type="submit" class="btn btn-primary btn-block">Register User</button>
                     </div>
                 </div>
