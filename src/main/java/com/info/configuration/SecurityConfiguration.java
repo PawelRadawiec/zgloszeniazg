@@ -42,6 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/teamleaderRegistration").permitAll()
                 .antMatchers("/teamleaderpage/**").hasAuthority("TEAM_LEADER")
                 .antMatchers("/addteammember/**").hasAuthority("TEAM_LEADER")
+                .antMatchers("/registerTeamMember/**").hasAuthority("TEAM_LEADER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
