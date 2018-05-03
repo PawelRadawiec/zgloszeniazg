@@ -26,7 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.jdbcAuthentication()
                 .usersByUsernameQuery("select email, password, active from team_leader where email=?")
-                .authoritiesByUsernameQuery("select email, role from team_leader where role = 'TEAM_LEADER' and email=?")
+                .authoritiesByUsernameQuery("select email, leader_role from team_leader where leader_role = 'TEAM_LEADER' and email=?")
+                .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder);
     }
 
@@ -39,16 +40,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/teamleaderRegistration").permitAll()
+                .antMatchers("/teamleaderpage/**").hasAuthority("TEAM_LEADER")
                 .antMatchers("/addteammember/**").hasAuthority("TEAM_LEADER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/teamleaderpage")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling()
+                .logoutSuccessUrl("/registration").and().exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }
 

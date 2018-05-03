@@ -24,6 +24,7 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
     @Override
     public void save(TeamLeader teamLeader) {
         teamLeader.setRole(Roles.TEAM_LEADER.toString());
+        teamLeader.setActive(1);
         teamLeader.setPassword(passwordEncoder.encode(teamLeader.getPassword()));
         teamLeaderRepository.save(teamLeader);
     }
