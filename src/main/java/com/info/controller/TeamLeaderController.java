@@ -1,12 +1,15 @@
 package com.info.controller;
 
 import com.info.model.TeamLeader;
+import com.info.model.TeamMember;
 import com.info.service.TeamLeaderService;
+import com.info.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +22,8 @@ public class TeamLeaderController {
     @Autowired
     private TeamLeaderService teamLeaderService;
 
+    @Autowired
+    private TeamMemberService teamMemberService;
 
 
     @RequestMapping(value="/registration", method = RequestMethod.GET)
@@ -49,6 +54,29 @@ public class TeamLeaderController {
     public ModelAndView teamLeaderPage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teamleaderpage");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/registerTeamMember")
+    public ModelAndView registerTeamMember(){
+        ModelAndView modelAndView = new ModelAndView();
+        TeamMember teamMember = new TeamMember();
+        modelAndView.addObject("teamMember", teamMember);
+        modelAndView.setViewName("memberregistration");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/registerTeamMember")
+    public ModelAndView createTeamMember(@Valid TeamMember teamMember, BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView();
+        if(bindingResult.hasErrors()){
+            modelAndView.setViewName("memberregistration");
+        }else{
+            teamMemberService.save(teamMember);
+            modelAndView.addObject("successMessage", "Członek drużyny został poprawnie dodany");
+            modelAndView.addObject("teamMember", new TeamLeader());
+            modelAndView.setViewName("memberregistration");
+        }
         return modelAndView;
     }
 
