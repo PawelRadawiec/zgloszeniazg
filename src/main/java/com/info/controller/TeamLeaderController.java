@@ -5,6 +5,8 @@ import com.info.model.TeamMember;
 import com.info.service.TeamLeaderService;
 import com.info.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +54,7 @@ public class TeamLeaderController {
     @GetMapping(value = "/teamleaderpage")
     public ModelAndView teamLeaderPage(){
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("teamLeaderName", teamLeaderService.helloTeamLeader());
         modelAndView.setViewName("teamleaderpage");
         return modelAndView;
     }

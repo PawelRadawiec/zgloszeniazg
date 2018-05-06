@@ -4,6 +4,8 @@ import com.info.model.Roles;
 import com.info.model.TeamLeader;
 import com.info.repository.TeamLeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +30,17 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
         teamLeader.setPassword(passwordEncoder.encode(teamLeader.getPassword()));
         teamLeaderRepository.save(teamLeader);
     }
+
+    @Override
+    public TeamLeader findByEmail(String email) {
+        return teamLeaderRepository.findByEmail(email);
+    }
+
+    @Override
+    public String helloTeamLeader(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        TeamLeader teamLeaderFromSession = findByEmail(auth.getName());
+        return teamLeaderFromSession.getFirstName();
+    }
+
 }
