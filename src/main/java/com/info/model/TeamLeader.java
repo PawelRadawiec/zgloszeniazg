@@ -3,6 +3,7 @@ package com.info.model;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -14,32 +15,33 @@ public class TeamLeader {
     private int id;
 
     @Column(name = "fiest_name")
-    @NotEmpty(message = "wprowadz wartosc")
+    @NotEmpty(message = "Pole nie może być puste")
     private String firstName;
 
     @Column(name = "last_name")
-    @NotEmpty(message = "wprowadz wartosc")
+    @NotEmpty(message = "Pole nie może być puste")
     private String lastName;
 
     @Column(name = "email", unique = true)
-    @NotEmpty(message = "wprowadz wartosc")
+    @Email(message = "Wprowadź poprawny email")
+    @NotEmpty(message = "Pole nie może być puste")
     private String email;
 
     @Column(name = "team_name", unique = true)
-    @NotEmpty(message = "wprowadz wartosc")
+    @NotEmpty(message = "Pole nie może być puste")
     private String teamName;
 
     @Column(name = "phone_number")
-    @NotEmpty(message = "wprowadz wartosc")
+    @NotEmpty(message = "Pole nie może być puste")
     private String phonenumber;
 
     @Column(name = "troops")
-    @NotEmpty(message = "wprowadz wartosc")
+    @NotEmpty(message = "Pole nie może być puste")
     private String troops;
 
     @Column(name = "password")
     @Length(min = 5, message = "haslo za krotkie")
-    @NotEmpty(message = "wprowadz wartosc")
+    @NotEmpty(message = "Pole nie może być puste")
     private String password;
 
     @Column(name = "leader_role")
