@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 public interface TeamLeaderService {
     TeamLeader findTeamLeaderByEmail(String email);
     void save(TeamLeader teamLeader);
+    TeamLeader findByEmail(String email);
+    String helloTeamLeader();
 }
