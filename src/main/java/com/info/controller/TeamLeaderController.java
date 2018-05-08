@@ -59,7 +59,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/registerTeamMember")
+    @GetMapping(value = "/teamleaderpage/registerTeamMember")
     public ModelAndView registerTeamMember(){
         ModelAndView modelAndView = new ModelAndView();
         TeamMember teamMember = new TeamMember();
@@ -68,7 +68,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/registerTeamMember")
+    @PostMapping(value = "/teamleaderpage/registerTeamMember")
     public ModelAndView createTeamMember(@Valid TeamMember teamMember, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
