@@ -22,10 +22,9 @@ public class TeamMember {
     @Column(name = "last_name")
     private String lastName;
 
-
     @NotEmpty(message = "Wpisz miasto")
     @Column(name = "city")
-    private String city;
+    private String homeCity;
 
     @NotEmpty(message = "Wpisz ulice")
     @Column(name = "street")
@@ -48,6 +47,7 @@ public class TeamMember {
 
     @Column(name = "team_name")
     private String teamName;
+
 
     public TeamMember(){};
 
@@ -75,12 +75,12 @@ public class TeamMember {
         this.lastName = lastName;
     }
 
-    public String getCity() {
-        return city;
+    public String getHomeCity() {
+        return homeCity;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setHomeCity(String homeCity) {
+        this.homeCity = homeCity;
     }
 
     public String getStreet() {

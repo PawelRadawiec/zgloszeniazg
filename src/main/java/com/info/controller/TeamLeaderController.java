@@ -5,8 +5,6 @@ import com.info.model.TeamMember;
 import com.info.service.TeamLeaderService;
 import com.info.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,7 +57,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/teamleaderpage/registerTeamMember")
+    @GetMapping(value = "/registerTeamMember")
     public ModelAndView registerTeamMember(){
         ModelAndView modelAndView = new ModelAndView();
         TeamMember teamMember = new TeamMember();
@@ -68,7 +66,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/teamleaderpage/registerTeamMember")
+    @PostMapping(value = "/registerTeamMember")
     public ModelAndView createTeamMember(@Valid TeamMember teamMember, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
@@ -76,7 +74,7 @@ public class TeamLeaderController {
         }else{
             teamMemberService.save(teamMember);
             modelAndView.addObject("successMessage", "Członek drużyny został poprawnie dodany");
-            modelAndView.addObject("teamMember", new TeamLeader());
+            modelAndView.addObject("teamMember", new TeamMember());
             modelAndView.setViewName("memberregistration");
         }
         return modelAndView;
