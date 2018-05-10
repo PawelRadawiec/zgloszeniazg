@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("teamMemberService")
 public class TeamMemberServiceImpl implements TeamMemberService {
 
@@ -26,5 +28,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         teamMember.setLeaderName( teamLeader.getFirstName() + " " +  teamLeader.getLastName());
         teamMember.setTeamName(teamLeader.getTeamName());
         memberRepository.save(teamMember);
+    }
+
+    @Override
+    public List<TeamMember> getAllMembers() {
+        List<TeamMember> memberList = memberRepository.getAllMembers();
+        return memberList;
     }
 }

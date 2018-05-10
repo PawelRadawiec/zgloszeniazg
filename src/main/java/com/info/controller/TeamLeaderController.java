@@ -53,6 +53,7 @@ public class TeamLeaderController {
     public ModelAndView teamLeaderPage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamLeaderName", teamLeaderService.helloTeamLeader());
+        modelAndView.addObject("memberlist", teamMemberService.getAllMembers());
         modelAndView.setViewName("teamleaderpage");
         return modelAndView;
     }
@@ -77,6 +78,14 @@ public class TeamLeaderController {
             modelAndView.addObject("teamMember", new TeamMember());
             modelAndView.setViewName("memberregistration");
         }
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/memberlist")
+    public ModelAndView getListOfMembers(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("memberlist", teamMemberService.getAllMembers());
+        modelAndView.setViewName("teamleaderpage");
         return modelAndView;
     }
 
