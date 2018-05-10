@@ -27,8 +27,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+            </br> </br> </br>
             <h2>Zgłoszenia członków drużyny</h2>
-            <form autocomplete="off" action="#" th:action="@{/registerTeamMember}"
+            <form autocomplete="off" action="#" th:action="@{/registerTeamMember }"
                   th:object="${teamMember}" method="post" class="form-horizontal"
                   role="form">
                 <div class="form-group">
@@ -42,20 +43,68 @@
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                  class="validation-message"></label>
-                        <input type="text" th:field="*{lastName}"
-                               placeholder="Nazwisko" class="form-control" />
+                        <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{lastName}" placeholder="Naziwsko"
+                               class="form-control" />
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('homeCity')}" th:errors="*{homeCity}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{homeCity}" placeholder="Miasto"
+                               class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label	th:if="${#fields.hasErrors('street')}" th:errors="*{street}"
+                                  class="validation-message"></label>
+                        <input type="text" th:field="*{street}"
+                               placeholder="Ulica" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label	th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                                  class="validation-message"></label>
+                        <input type="text" th:field="*{phoneNumber}"
+                               placeholder="Telefon" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label	th:if="${#fields.hasErrors('mealCategory')}" th:errors="*{mealCategory}"
+                                  class="validation-message"></label>
+                        <input type="text" th:field="*{mealCategory}"
+                               placeholder="Dieta" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label	th:if="${#fields.hasErrors('teamLeaderPhone')}" th:errors="*{teamLeaderPhone}"
+                                  class="validation-message"></label>
+                        <input type="text" th:field="*{teamLeaderPhone}"
+                               placeholder="Telefon drużynowego" class="form-control" />
+                    </div>
+                </div>
+
+
 
                 <div class="form-group">
                     <div class="col-sm-9">
                         <button type="submit" class="btn btn-primary btn-block">Dodaj</button>
                     </div>
                 </div>
-
                 <span th:utext="${successMessage}"></span>
+
+                <a href="/teamleaderpage" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Back to </a>
 
             </form>
         </div>

@@ -35,6 +35,42 @@
 
    <h1>Witaj <td th:text="${teamLeaderName}"></td></h1>
     <div class="panel-group" style="margin-top:40px">
+        <div class="form-group">
+            <div class="col-sm-9">
+                <a href="/registerTeamMember" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Zarejestruj członka drużyny</a>
+            </div>
+        </div>
+    </div>
+
+    <div class = "container">
+        <br/> <br/>
+            <h2>Lista członków drużyny</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>id</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Miasto</th>
+                    <th>Ulica</th>
+                    <th>Numer telefonu</th>
+                    <th>Numer telefonu drużynowego</th>
+                    <th>Dieta</th>
+                    <th>Drużynowy</th>
+                    <th>Drużyna</th>
+                </tr>
+                <tr th:each="memberteam : ${memberlist}">
+                    <td th:text="${memberteam.id}"></td>
+                    <td th:text="${memberteam.firstName}"></td>
+                    <td th:text="${memberteam.lastName}"></td>
+                    <td th:text="${memberteam.homeCity}"></td>
+                    <td th:text="${memberteam.street}"></td>
+                    <td th:text="${memberteam.phoneNumber}"></td>
+                    <td th:text="${memberteam.teamLeaderPhone}"></td>
+                    <td th:text="${memberteam.mealCategory}"></td>
+                    <td th:text="${memberteam.leaderName}"></td>
+                    <td th:text="${memberteam.teamName}"></td>
+                </tr>
+            </table>
 
     </div>
 
