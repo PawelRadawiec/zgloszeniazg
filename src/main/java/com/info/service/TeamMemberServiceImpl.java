@@ -35,4 +35,19 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         List<TeamMember> memberList = memberRepository.getAllMembers();
         return memberList;
     }
+
+    @Override
+    public TeamMember findById(int id) {
+        TeamMember teamMemberById = memberRepository.findById(id);
+        return teamMemberById;
+    }
+
+    @Override
+    public void editTeamMember(TeamMember teamMember, int id) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        TeamLeader teamLeader = teamLeaderRepository.findByEmail(authentication.getName());
+        memberRepository.editUser(teamMember.getFirstName(), teamMember.getLastName(), teamMember.getHomeCity(), teamMember.getStreet(), teamMember.getPhoneNumber(), teamMember.getTeamLeaderPhone(), teamMember.getMealCategory(), teamMember.getId());
+
+        //memberRepository.save(teamMember);
+    }
 }

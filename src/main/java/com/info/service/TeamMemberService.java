@@ -9,4 +9,6 @@ import java.util.List;
 public interface TeamMemberService {
     void save(TeamMember teamMember);
     List<TeamMember> getAllMembers();
+    TeamMember findById(int id);
+    void editTeamMember(TeamMember teamMember, int id);
 }
