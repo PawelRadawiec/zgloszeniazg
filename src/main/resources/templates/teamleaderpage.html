@@ -69,9 +69,12 @@
                     <td th:text="${memberteam.mealCategory}"></td>
                     <td th:text="${memberteam.leaderName}"></td>
                     <td th:text="${memberteam.teamName}"></td>
+                    <td colspan="2">
+                            <a th:href="@{'/edit/' + ${memberteam.id}}" class="btn btn-info" >Edytuj</a>
+                    </td>
                 </tr>
-            </table>
 
+            </table>
     </div>
 
 </div>

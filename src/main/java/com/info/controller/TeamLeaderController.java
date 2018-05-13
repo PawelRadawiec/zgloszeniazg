@@ -7,10 +7,7 @@ import com.info.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -86,6 +83,24 @@ public class TeamLeaderController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("memberlist", teamMemberService.getAllMembers());
         modelAndView.setViewName("teamleaderpage");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/edit/{id}")
+    public ModelAndView changeTeamMember(@PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        TeamMember teamMember = this.teamMemberService.findById(id);
+        modelAndView.addObject("teamMember", teamMember);
+        modelAndView.setViewName("edit");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/edit/{id}")
+    public ModelAndView editTeamMember(@Valid TeamMember teamMember,  @PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("teamMember", teamMember);
+        teamMemberService.editTeamMember(teamMember, id);
+        modelAndView.setViewName("edit");
         return modelAndView;
     }
 
