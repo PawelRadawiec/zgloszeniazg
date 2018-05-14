@@ -104,4 +104,12 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
+    @DeleteMapping(value = "/delete/{id}")
+    public ModelAndView deleteMemberById(@PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        teamMemberService.deleteById(id);
+        modelAndView.setViewName("teamleaderpage");
+        return modelAndView;
+    }
+
 }
