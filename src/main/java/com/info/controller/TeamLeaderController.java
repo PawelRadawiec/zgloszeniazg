@@ -104,11 +104,19 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @GetMapping(value = "/delete/{id}")
+    public ModelAndView deleteMember(@PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        teamMemberService.deleteById(id);
+        modelAndView.setViewName("redirect:/teamleaderpage");
+        return modelAndView;
+    }
+
+    @DeleteMapping  (value = "/delete/{id}")
     public ModelAndView deleteMemberById(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
-        modelAndView.setViewName("teamleaderpage");
+        modelAndView.setViewName("redirect:/teamleaderpage");
         return modelAndView;
     }
 
