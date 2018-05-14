@@ -32,6 +32,6 @@ public interface TeamMemberRepository extends CrudRepository<TeamMember, Long> {
                   @Param("mealCategory") String mealCategory ,
                   @Param("id") int id);
 
-
+    void deleteById(int id);
 
 }

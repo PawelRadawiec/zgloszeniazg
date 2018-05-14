@@ -58,21 +58,24 @@
                     <th>Drużynowy</th>
                     <th>Drużyna</th>
                 </tr>
-                <tr th:each="memberteam : ${memberlist}">
-                    <td th:text="${memberteam.id}"></td>
-                    <td th:text="${memberteam.firstName}"></td>
-                    <td th:text="${memberteam.lastName}"></td>
-                    <td th:text="${memberteam.homeCity}"></td>
-                    <td th:text="${memberteam.street}"></td>
-                    <td th:text="${memberteam.phoneNumber}"></td>
-                    <td th:text="${memberteam.teamLeaderPhone}"></td>
-                    <td th:text="${memberteam.mealCategory}"></td>
-                    <td th:text="${memberteam.leaderName}"></td>
-                    <td th:text="${memberteam.teamName}"></td>
-                    <td colspan="2">
-                            <a th:href="@{'/edit/' + ${memberteam.id}}" class="btn btn-info" >Edytuj</a>
-                    </td>
-                </tr>
+                <tbody>
+                    <tr th:each="memberteam : ${memberlist}">
+                        <td th:text="${memberteam.id}"></td>
+                        <td th:text="${memberteam.firstName}"></td>
+                        <td th:text="${memberteam.lastName}"></td>
+                        <td th:text="${memberteam.homeCity}"></td>
+                        <td th:text="${memberteam.street}"></td>
+                        <td th:text="${memberteam.phoneNumber}"></td>
+                        <td th:text="${memberteam.teamLeaderPhone}"></td>
+                        <td th:text="${memberteam.mealCategory}"></td>
+                        <td th:text="${memberteam.leaderName}"></td>
+                        <td th:text="${memberteam.teamName}"></td>
+                        <td colspan="2">
+                                <a th:href="@{'/edit/' + ${memberteam.id}}" class="btn btn-info" >Edytuj</a>
+                                <a th:href="@{'/delete/' + ${memberteam.id}}" class="btn btn-danger"> Usuń</a>
+                        </td>
+                    </tr>
+                </tbody>
 
             </table>
     </div>

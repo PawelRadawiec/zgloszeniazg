@@ -50,4 +50,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         //memberRepository.save(teamMember);
     }
+
+    @Override
+    public void deleteById(int id) {
+        memberRepository.deleteById(id);
+    }
 }
