@@ -24,6 +24,17 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
     }
 
     @Override
+    public boolean userExist(TeamLeader teamLeader){
+        TeamLeader existTeamLeader = teamLeaderRepository.findByEmail(teamLeader.getEmail());
+        if(existTeamLeader == null) return false;
+        if(teamLeader.getEmail().equals(existTeamLeader.getEmail())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
     public void save(TeamLeader teamLeader) {
         teamLeader.setRole(Roles.TEAM_LEADER.toString());
         teamLeader.setActive(1);

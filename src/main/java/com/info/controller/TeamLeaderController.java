@@ -7,6 +7,7 @@ import com.info.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,11 +35,12 @@ public class TeamLeaderController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid TeamLeader teamLeader, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors() | teamLeaderService.userExist(teamLeader) == true){
+            modelAndView.addObject("userexist", "Konto z podanym adresem email już istenieje, podaj inny adress email");
             modelAndView.setViewName("registration");
         }else{
             teamLeaderService.save(teamLeader);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("successMessage", "Poprawna rejstracja!");
             modelAndView.addObject("teamLeader", new TeamLeader());
             modelAndView.setViewName("registration");
         }

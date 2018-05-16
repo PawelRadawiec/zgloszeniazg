@@ -9,4 +9,5 @@ public interface TeamLeaderService {
     void save(TeamLeader teamLeader);
     TeamLeader findByEmail(String email);
     String helloTeamLeader();
+    boolean userExist(TeamLeader teamLeader);
 }
