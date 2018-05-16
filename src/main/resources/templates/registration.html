@@ -57,7 +57,7 @@
                         <input type="text" th:field="*{email}" placeholder="Email"
                                class="form-control" /> <label
                             th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                            class="validation-message"></label>
+                            class="validation-message"></label> <p class="text-danger" th:text="${userexist}" />
                     </div>
                 </div>
 
