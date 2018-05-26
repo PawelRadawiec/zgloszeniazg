@@ -5,9 +5,10 @@ import com.info.model.TeamMember;
 import com.info.service.TeamLeaderService;
 import com.info.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -51,8 +52,9 @@ public class TeamLeaderController {
     @GetMapping(value = "/teamleaderpage")
     public ModelAndView teamLeaderPage(){
         ModelAndView modelAndView = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         modelAndView.addObject("teamLeaderName", teamLeaderService.helloTeamLeader());
-        modelAndView.addObject("memberlist", teamMemberService.getAllMembers());
+        modelAndView.addObject("memberlist", teamMemberService.getAllMembers(authentication.getName()));
         modelAndView.setViewName("teamleaderpage");
         return modelAndView;
     }
@@ -83,7 +85,8 @@ public class TeamLeaderController {
     @GetMapping(value = "/memberlist")
     public ModelAndView getListOfMembers(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("memberlist", teamMemberService.getAllMembers());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        modelAndView.addObject("memberlist", teamMemberService.getAllMembers(auth.getName()));
         modelAndView.setViewName("teamleaderpage");
         return modelAndView;
     }

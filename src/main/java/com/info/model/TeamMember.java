@@ -1,7 +1,5 @@
 package com.info.model;
 
-import org.springframework.format.annotation.NumberFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -47,6 +45,9 @@ public class TeamMember {
 
     @Column(name = "team_name")
     private String teamName;
+
+    @Column(name = "team_leader_email")
+    private String teamLeaderEmail;
 
 
     public TeamMember(){};
@@ -130,4 +131,8 @@ public class TeamMember {
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }
+
+    public String getTeamLeaderEmail() { return teamLeaderEmail; }
+
+    public void setTeamLeaderEmail(String teamLeaderEmail) { this.teamLeaderEmail = teamLeaderEmail; }
 }
