@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface TeamMemberService {
     void save(TeamMember teamMember);
-    List<TeamMember> getAllMembers();
+    List<TeamMember> getAllMembers(String teamLeaderEmail);
     TeamMember findById(int id);
     void editTeamMember(TeamMember teamMember, int id);
     void deleteById(int id);
