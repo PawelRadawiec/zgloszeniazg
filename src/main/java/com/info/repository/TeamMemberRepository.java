@@ -16,8 +16,8 @@ import java.util.List;
 @Repository("teamMemmberRepo")
 public interface TeamMemberRepository extends CrudRepository<TeamMember, Long> {
 
-    @Query(value = "select * from team_member", nativeQuery = true)
-    List<TeamMember> getAllMembers();
+    @Query(value = "select * from team_member WHERE team_leader_email=?", nativeQuery = true)
+    List<TeamMember> getAllMembers(@Param("team_leader_email") String teamLeaderEmail);
 
     TeamMember findById(int id);
 

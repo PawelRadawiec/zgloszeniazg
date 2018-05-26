@@ -11,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 public class TeamLeader {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
