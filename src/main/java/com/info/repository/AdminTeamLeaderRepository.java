@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface AdminTeamLeaderRepository extends JpaRepository<TeamLeader, Long> {
 
-    @Query(value = "SELECT * FROM TEAM_LEADER", nativeQuery = true)
+    @Query(value = "SELECT * FROM TEAM_LEADER WHERE role = 'TEAM_LEADER'", nativeQuery = true)
     List<TeamLeader> getAll();
 }

@@ -12,7 +12,7 @@ public class AdminController {
     @Autowired
     private AdminServiceImpl adminService;
 
-    @GetMapping(value = "/admin/getTeamLeaders")
+    @GetMapping(value = "/admin")
     public ModelAndView getAllTeamLeaders(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamLeaderList", adminService.getAllTeamLeader());

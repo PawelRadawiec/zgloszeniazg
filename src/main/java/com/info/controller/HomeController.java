@@ -24,15 +24,17 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/default")
-    public String deafultAfterLogin(){
+    public ModelAndView deafultAfterLogin(){
+        ModelAndView modelAndView = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         TeamLeader teamLeader =  teamLeaderRepository.findByEmail(authentication.getName());
         if(teamLeader.getRole().equals("ADMIN")){
-            return "adminteamleader";
+            return new ModelAndView("redirect:" + "/admin");
         } else if(teamLeader.getRole().equals("TEAM_LEADER")){
-            return "teamleaderpage";
+            return new ModelAndView("redirect:" + "/teamleader");
         }else{
-            return "/login";
+            modelAndView.setViewName("login");
+            return modelAndView;
         }
     }
 
