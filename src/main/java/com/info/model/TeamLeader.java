@@ -45,7 +45,7 @@ public class TeamLeader {
     @NotEmpty(message = "Pole nie może być puste")
     private String password;
 
-    @Column(name = "leader_role")
+    @Column(name = "role")
     private String role;
 
     @Column(name = "active")

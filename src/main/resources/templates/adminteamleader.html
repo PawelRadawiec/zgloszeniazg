@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Admin Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">zgloszeniazg</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Wyloguj się</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout</button>
+    </form>
+
+    <h1>Witaj <td th:text="${teamLeaderName}"></td></h1>
+    <div class="panel-group" style="margin-top:40px">
+        <div class="form-group">
+            <div class="col-sm-9">
+                <a href="/*" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Dodaj drużynowego</a>
+            </div>
+        </div>
+    </div>
+
+    <div class = "container">
+        <br/> <br/>
+        <h2>Lista drużynowych</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Mail</th>
+                <th>Nazwa drużyny</th>
+                <th>Numer telefonu</th>
+                <th>Hufiec</th>
+                <th>Rola</th>
+                <th>Aktywny</th>
+            </tr>
+            <tbody>
+            <tr th:each="teamleader : ${teamLeaderList}">
+                <td th:text="${teamleader.id}"></td>
+                <td th:text="${teamleader.firstName}"></td>
+                <td th:text="${teamleader.lastName}"></td>
+                <td th:text="${teamleader.email}"></td>
+                <td th:text="${teamleader.teamName}"></td>
+                <td th:text="${teamleader.phonenumber}"></td>
+                <td th:text="${teamleader.troops}"></td>
+                <td th:text="${teamleader.role}"></td>
+                <td th:text="${teamleader.active}"></td>
+                <td colspan="2">
+                    <a th:href="@{'/edit/' + ${teamleader.id}}" class="btn btn-info" >Edytuj</a>
+                    <a th:href="@{'/delete/' + ${teamleader.id}}" class="btn btn-danger"> Usuń</a>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

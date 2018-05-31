@@ -49,7 +49,7 @@ public class TeamLeaderController {
 
     }
 
-    @GetMapping(value = "/teamleaderpage")
+    @GetMapping(value = "/teamleader")
     public ModelAndView teamLeaderPage(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
