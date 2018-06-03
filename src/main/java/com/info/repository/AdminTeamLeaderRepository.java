@@ -13,5 +13,8 @@ public interface AdminTeamLeaderRepository extends JpaRepository<TeamLeader, Lon
     @Query(value = "SELECT * FROM TEAM_LEADER WHERE role = 'TEAM_LEADER'", nativeQuery = true)
     List<TeamLeader> getAll();
 
+    @Query(value = "SELECT * FROM TEAM_LEADER WHERE id=?", nativeQuery = true)
+    TeamLeader getTeamLeaderById(int id);
+
 
 }

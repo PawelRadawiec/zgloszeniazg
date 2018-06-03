@@ -71,7 +71,7 @@
                 <td th:text="${teamMember.phoneNumber}"></td>
                 <td th:text="${teamMember.teamLeaderPhone}"></td>
                 <td th:text="${teamMember.mealCategory}"></td>
-                <td th:text="${teamMember.leaderName}"></td>
+                <td  th:text="${teamMember.leaderName}"></td>
                 <td th:text="${teamMember.teamName}"></td>
                 <td th:text="${teamMember.teamLeaderEmail}"></td>
                 <td colspan="2">
@@ -104,7 +104,7 @@
                 <td th:text="${teamleader.id}"></td>
                 <td th:text="${teamleader.firstName}"></td>
                 <td th:text="${teamleader.lastName}"></td>
-                <td th:text="${teamleader.email}"></td>
+                <td> <a th:href="@{'/admin/details/' + ${teamleader.id}}" th:text="${teamleader.email}"></a></td>
                 <td th:text="${teamleader.teamName}"></td>
                 <td th:text="${teamleader.phonenumber}"></td>
                 <td th:text="${teamleader.troops}"></td>

@@ -36,6 +36,13 @@ public class AdminServiceImpl implements AdminService {
         return teamMemberRepository.getALl();
     }
 
+    @Override
+    public Object getDetails(int id) {
+        TeamLeader teamLeader = adminTeamLeaderRepository.getTeamLeaderById(id);
+
+        return teamLeader;
+    }
+
     public Admin getAdminFromSession(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminRepository.findAdminByEmail(authentication.getName());
