@@ -25,6 +25,7 @@ public class MyAppUserDetailsService implements UserDetailsService {
         if(teamLeader == null){
             throw new UsernameNotFoundException("User not authorized.");
         }
+
         GrantedAuthority authority = new SimpleGrantedAuthority(teamLeader.getRole());
         UserDetails userDetails = new User(teamLeader.getEmail(), teamLeader.getPassword(), Arrays.asList(authority));
         return userDetails;
