@@ -19,6 +19,9 @@ public interface TeamMemberRepository extends CrudRepository<TeamMember, Long> {
     @Query(value = "select * from team_member WHERE team_leader_email=?", nativeQuery = true)
     List<TeamMember> getAllMembers(@Param("team_leader_email") String teamLeaderEmail);
 
+    @Query(value = "SELECT * FROM team_member", nativeQuery = true)
+    List<TeamMember> getALl();
+
     TeamMember findById(int id);
 
     @Modifying

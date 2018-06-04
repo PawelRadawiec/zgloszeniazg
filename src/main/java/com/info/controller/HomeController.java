@@ -1,6 +1,8 @@
 package com.info.controller;
 
+import com.info.model.Admin;
 import com.info.model.TeamLeader;
+import com.info.repository.AdminRepository;
 import com.info.repository.TeamLeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,9 @@ public class HomeController {
     @Autowired
     TeamLeaderRepository teamLeaderRepository;
 
+    @Autowired
+    private AdminRepository adminRepository;
+
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello(){
         return "hello";
@@ -27,12 +32,13 @@ public class HomeController {
     public ModelAndView deafultAfterLogin(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Admin admin = adminRepository.findAdminByEmail(authentication.getName());
         TeamLeader teamLeader =  teamLeaderRepository.findByEmail(authentication.getName());
-        if(teamLeader.getRole().equals("ADMIN")){
+        if(admin != null){
             return new ModelAndView("redirect:" + "/admin");
-        } else if(teamLeader.getRole().equals("TEAM_LEADER")){
+        } else if(teamLeader != null && teamLeader.getRole().equals("TEAM_LEADER")) {
             return new ModelAndView("redirect:" + "/teamleader");
-        }else{
+        } else{
             modelAndView.setViewName("login");
             return modelAndView;
         }

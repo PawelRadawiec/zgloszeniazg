@@ -19,6 +19,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyAppUserDetailsService myAppUserDetailsService;
 
+    @Autowired
+    private AdminUserDetailsService adminUserDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -48,5 +51,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         auth.userDetailsService(myAppUserDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(adminUserDetailsService).passwordEncoder(passwordEncoder);
     }
 }

@@ -19,6 +19,9 @@ public class Admin {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "role")
+    private String role;
+
     @Column(name = "password")
     private String password;
 
@@ -47,6 +50,10 @@ public class Admin {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public String getRole() { return role; }
+
+    public void setRole(String role) { this.role = role; }
 
     public String getEmail() {
         return email;
