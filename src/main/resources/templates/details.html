@@ -31,18 +31,48 @@
 </br></br>
 </br></br>
 <div class="container">
-    <p>Id <td th:text="${teamLeader.id}"></td></p>
-    <p>Imie <td th:text="${teamLeader.firstName}"></td></p>
+    <p>Id: <td th:text="${teamLeader.id}"></td></p>
+    <p>Imie: <td th:text="${teamLeader.firstName}"></td></p>
+    <p>Naziwsko: <td th:text="${teamLeader.lastName}"></td></p>
+    <p>E-mail: <td th:text="${teamLeader.email}"></td></p>s
 </div>
 
-<div class="list-group">
-    <a href="#" class="list-group-item active">
-        Cras justo odio
-    </a>
-    <a href="#" class="list-group-item" th:text="${teamLeader.id}" >id: </a>
-    <a href="#" class="list-group-item" th:text="${teamLeader.firstName}" >Imie: </a>
-    <a href="#" class="list-group-item" th:text="${teamLeader.lastName}">Nazwisko</a>
-    <a href="#" class="list-group-item">Vestibulum at eros</a>
+<div class = "container">
+    <br/> <br/>
+    <h2>Lista członków drużyny</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>id</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Miasto</th>
+            <th>Ulica</th>
+            <th>Numer telefonu</th>
+            <th>Numer telefonu drużynowego</th>
+            <th>Dieta</th>
+            <th>Drużynowy</th>
+            <th>Drużyna</th>
+        </tr>
+        <tbody>
+        <tr th:each="memberteam : ${memberlist}">
+            <td th:text="${memberteam.id}"></td>
+            <td th:text="${memberteam.firstName}"></td>
+            <td th:text="${memberteam.lastName}"></td>
+            <td th:text="${memberteam.homeCity}"></td>
+            <td th:text="${memberteam.street}"></td>
+            <td th:text="${memberteam.phoneNumber}"></td>
+            <td th:text="${memberteam.teamLeaderPhone}"></td>
+            <td th:text="${memberteam.mealCategory}"></td>
+            <td th:text="${memberteam.leaderName}"></td>
+            <td th:text="${memberteam.teamName}"></td>
+            <td colspan="2">
+                <a th:href="@{'/edit/' + ${memberteam.id}}" class="btn btn-info" >Edytuj</a>
+                <a th:href="@{'/delete/' + ${memberteam.id}}" class="btn btn-danger"> Usuń</a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
 </div>
 
 

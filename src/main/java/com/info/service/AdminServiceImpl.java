@@ -5,6 +5,7 @@ import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
 import com.info.repository.AdminRepository;
 import com.info.repository.AdminTeamLeaderRepository;
+import com.info.repository.AdminTeamMemberRepository;
 import com.info.repository.TeamMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private AdminTeamMemberRepository adminTeamMemberRepository;
+
     @Override
     public List<TeamLeader> getAllTeamLeader() {
         return adminTeamLeaderRepository.getAll();
@@ -39,13 +43,20 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Object getDetails(int id) {
         TeamLeader teamLeader = adminTeamLeaderRepository.getTeamLeaderById(id);
-
         return teamLeader;
     }
+
+    @Override
+    public List<TeamMember> getTeamMembersByLeader(String teamLeaderEmail) {
+        return adminTeamMemberRepository.getTeamMembersByLeader(teamLeaderEmail);
+    }
+
 
     public Admin getAdminFromSession(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminRepository.findAdminByEmail(authentication.getName());
         return admin;
     }
+
+
 }

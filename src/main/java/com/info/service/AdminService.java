@@ -11,4 +11,5 @@ public interface AdminService {
     List<TeamLeader> getAllTeamLeader();
     List<TeamMember> getAllTeamMember();
     Object getDetails(int id);
+    List<TeamMember> getTeamMembersByLeader(String teamLeaderEmail);
 }
