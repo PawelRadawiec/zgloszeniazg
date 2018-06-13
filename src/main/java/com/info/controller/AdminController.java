@@ -1,18 +1,20 @@
 package com.info.controller;
 
+import com.info.model.SearchForm;
+import com.info.model.TeamMember;
 import com.info.service.AdminServiceImpl;
 import com.info.service.XlsxReport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -42,6 +44,12 @@ public class AdminController {
         return modelAndView;
     }
 
+//    @GetMapping(value = "/search")
+//    public ModelAndView searchTeamLeader(){
+//        ModelAndView modelAndView = new ModelAndView("adminsearch");
+//        return modelAndView;
+//    }
+
     @GetMapping(value = "/details/{id}/{email}")
     public ModelAndView getDetails(@PathVariable("id") int id,
                                    @PathVariable("email")String teamLeaderMail){
@@ -51,6 +59,8 @@ public class AdminController {
         modelAndView.setViewName("details");
         return modelAndView;
     }
+
+
 
     @RequestMapping(value = "/getFile", method =  RequestMethod.GET)
     public void allTeamMemberReport(HttpServletResponse response) throws Exception {

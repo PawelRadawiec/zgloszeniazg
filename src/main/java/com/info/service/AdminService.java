@@ -12,4 +12,5 @@ public interface AdminService {
     List<TeamMember> getAllTeamMember();
     Object getDetails(int id);
     List<TeamMember> getTeamMembersByLeader(String teamLeaderEmail);
+    List<TeamLeader> searchByLastName(String lastName);
 }

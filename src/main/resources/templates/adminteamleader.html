@@ -42,12 +42,14 @@
                 <a href="/admin/teammemberlist" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Lista członkow drużyn</a>
                 <a href="/admin" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Lista drużynowych</a>
                 <a href="/admin/getFile" class="btn btn-primary"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Generuj raport</a>
+                <a href="/admin/search" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Szukaj drużynowego</a>
             </div>
         </div>
     </div>
     <hr>
-    <div class = "container" th:if="${not #lists.isEmpty(teamMemberlist)}">
 
+
+    <div class = "container" th:if="${not #lists.isEmpty(teamMemberlist)}">
         <br/> <br/>
         <h2>Lista członków drużyn</h2>
         <table class="table table-striped">
@@ -87,6 +89,8 @@
         </table>
     </div>
 
+
+
     <div class = "container" th:if="${not #lists.isEmpty(teamLeaderList)}">
         <br/> <br/>
         <h2>Lista drużynowych</h2>
@@ -104,6 +108,45 @@
             </tr>
             <tbody>
             <tr th:each="teamleader : ${teamLeaderList}">
+                <td th:text="${teamleader.id}"></td>
+                <td th:text="${teamleader.firstName}"></td>
+                <td th:text="${teamleader.lastName}"></td>
+                <td> <a th:href="@{'/admin/details/' + ${teamleader.id} + '/' + ${teamleader.email} }  " th:text="${teamleader.email}"></a></td>
+                <td th:text="${teamleader.teamName}"></td>
+                <td th:text="${teamleader.phonenumber}"></td>
+                <td th:text="${teamleader.troops}"></td>
+                <td th:text="${teamleader.role}"></td>
+                <td th:text="${teamleader.active}"></td>
+                <td colspan="2">
+                    <a th:href="@{'/admin/details/' + ${teamleader.id} + '/' + ${teamleader.email}}" class="btn btn-info">Szczegóły</a>
+                    <a th:href="@{'/edit/' + ${teamleader.id}}" class="btn btn-warning" >Edytuj</a>
+                    <a th:href="@{'/delete/' + ${teamleader.id}}" class="btn btn-danger">Usuń</a>
+
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class = "container" th:if="${not #lists.isEmpty(filterList)}">
+        <br/> <br/>
+        <h2>Lista drużynowych</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Mail</th>
+                <th>Nazwa drużyny</th>
+                <th>Numer telefonu</th>
+                <th>Hufiec</th>
+                <th>Rola</th>
+                <th>Aktywny</th>
+                <th>Akcje</th>
+            </tr>
+            <tbody>
+            <tr th:each="teamleader : ${filterList}">
                 <td th:text="${teamleader.id}"></td>
                 <td th:text="${teamleader.firstName}"></td>
                 <td th:text="${teamleader.lastName}"></td>
