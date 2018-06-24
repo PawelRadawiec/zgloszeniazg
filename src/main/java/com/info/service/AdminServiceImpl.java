@@ -51,6 +51,11 @@ public class AdminServiceImpl implements AdminService {
         return adminTeamMemberRepository.getTeamMembersByLeader(teamLeaderEmail);
     }
 
+    @Override
+    public List<TeamLeader> searchByLastName(String lastName) {
+        return adminTeamLeaderRepository.searchByLastName(lastName);
+    }
+
 
     public Admin getAdminFromSession(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

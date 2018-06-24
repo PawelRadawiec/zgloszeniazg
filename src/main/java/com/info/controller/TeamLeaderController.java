@@ -37,7 +37,7 @@ public class TeamLeaderController {
     private XlsxReport xlsxReport;
 
 
-    @RequestMapping(value="/registration", method = RequestMethod.GET)
+    @RequestMapping(value="/teamleader/registration", method = RequestMethod.GET)
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         TeamLeader teamLeader = new TeamLeader();
@@ -72,7 +72,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/registerTeamMember")
+    @GetMapping(value = "/teamleader/registerTeamMember")
     public ModelAndView registerTeamMember(){
         ModelAndView modelAndView = new ModelAndView();
         TeamMember teamMember = new TeamMember();
@@ -81,7 +81,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/registerTeamMember")
+    @PostMapping(value = "/teamleader/registerTeamMember")
     public ModelAndView createTeamMember(@Valid TeamMember teamMember, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
@@ -95,7 +95,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/memberlist")
+    @GetMapping(value = "/teamleader/memberlist")
     public ModelAndView getListOfMembers(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -104,7 +104,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/edit/{id}")
+    @GetMapping(value = "/teamleader/edit/{id}")
     public ModelAndView changeTeamMember(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         TeamMember teamMember = this.teamMemberService.findById(id);
@@ -113,7 +113,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/edit/{id}")
+    @PostMapping(value = "/teamleader/edit/{id}")
     public ModelAndView editTeamMember(@Valid TeamMember teamMember,  @PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamMember", teamMember);
@@ -122,7 +122,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @GetMapping(value = "/teamleader/delete/{id}")
     public ModelAndView deleteMember(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
@@ -130,7 +130,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @DeleteMapping  (value = "/delete/{id}")
+    @DeleteMapping  (value = "/teamleader/delete/{id}")
     public ModelAndView deleteMemberById(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
@@ -139,7 +139,7 @@ public class TeamLeaderController {
     }
 
 
-    @RequestMapping(value = "/getfile", method =  RequestMethod.GET)
+    @RequestMapping(value = "/teamleader/getFile", method =  RequestMethod.GET)
     public void downloadSPreddSheet(HttpServletResponse response) throws Exception{
         XSSFWorkbook wb = null;
         try {
