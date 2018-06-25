@@ -13,4 +13,5 @@ public interface TeamMemberService {
     TeamMember findById(int id);
     void editTeamMember(TeamMember teamMember, int id);
     void deleteById(int id);
+    List<TeamMember> getAll();
 }

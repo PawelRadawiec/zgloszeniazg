@@ -56,4 +56,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public void deleteById(int id) {
         memberRepository.deleteById(id);
     }
+
+    @Override
+    public List<TeamMember> getAll() {
+      return memberRepository.getALl();
+    }
 }
