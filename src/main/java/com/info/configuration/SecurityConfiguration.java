@@ -40,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/teamleaderpage/edit").hasAuthority("TEAM_LEADER")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/teamleaderRegistration").permitAll()
                 .antMatchers("/teamleaderpage/**").hasAuthority("TEAM_LEADER")
