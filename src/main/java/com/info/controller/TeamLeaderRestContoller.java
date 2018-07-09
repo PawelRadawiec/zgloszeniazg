@@ -1,13 +1,26 @@
 package com.info.controller;
 
+import com.info.model.TeamMember;
+import com.info.service.TeamMemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class TeamLeaderRestContoller {
 
+    @Autowired
+    private TeamMemberService teamMemberService;
+
     @GetMapping(value = "/rest/hello")
     public String helloTeamLeader(){
         return "Hello Test";
+    }
+
+    @GetMapping(value = "/rest/getall")
+    public List<TeamMember> getAllTeamMember(){
+        return teamMemberService.getAll();
     }
 }

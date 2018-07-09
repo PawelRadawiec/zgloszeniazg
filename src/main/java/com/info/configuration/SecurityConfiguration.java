@@ -27,6 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/rest/**").permitAll()
@@ -38,9 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/getFile").hasAuthority("ADMIN")
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/teamleaderRegistration").permitAll()
-                .antMatchers("/teamleaderpage/**").hasAuthority("TEAM_LEADER")
+                .antMatchers("/teamleader/**").hasAuthority("TEAM_LEADER")
                 .antMatchers("/addteammember/**").hasAuthority("TEAM_LEADER")
-                .antMatchers("/registerTeamMember/**").hasAuthority("TEAM_LEADER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
