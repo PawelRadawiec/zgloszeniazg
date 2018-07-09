@@ -3,44 +3,44 @@ package com.info.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled=true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private MyAppUserDetailsService myAppUserDetailsService;
 
     @Autowired
-    private DataSource dataSource;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.jdbcAuthentication()
-                .usersByUsernameQuery("select email, password, active from team_leader where email=?")
-                .authoritiesByUsernameQuery("select email, leader_role from team_leader where leader_role = 'TEAM_LEADER' and email=?")
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder);
-    }
+    private AdminUserDetailsService adminUserDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.
-                authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/home").permitAll()
+<<<<<<< HEAD
                 .antMatchers("/teamleaderpage/edit").hasAuthority("TEAM_LEADER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
+=======
+                .antMatchers("/rest/**").permitAll()
+                .antMatchers("/teamleader/edit").hasAuthority("TEAM_LEADER")
+                .antMatchers("/search").hasAuthority("ADMIN")
+                .antMatchers("/search/all").hasAuthority("ADMIN")
+                .antMatchers("/admin/search/all").hasAuthority("ADMIN")
+                .antMatchers("/teamleader/getFile").hasAuthority("TEAM_LEADER")
+                .antMatchers("/admin/getFile").hasAuthority("ADMIN")
+>>>>>>> 24239b859f093b49cd0699981575f20a57e9c49a
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/teamleaderRegistration").permitAll()
                 .antMatchers("/teamleaderpage/**").hasAuthority("TEAM_LEADER")
@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/teamleaderpage")
+                .defaultSuccessUrl("/default")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
@@ -58,10 +58,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/access-denied");
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        auth.userDetailsService(myAppUserDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(adminUserDetailsService).passwordEncoder(passwordEncoder);
     }
 }

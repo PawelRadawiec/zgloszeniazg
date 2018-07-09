@@ -1,5 +1,6 @@
 package com.info.controller;
 
+<<<<<<< HEAD
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,4 +15,85 @@ public class AdminController {
         modelAndView.setViewName("adminpage");
         return modelAndView;
     }
+=======
+import com.info.model.SearchForm;
+import com.info.model.TeamMember;
+import com.info.service.AdminServiceImpl;
+import com.info.service.XlsxReport;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.jws.WebParam;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+@Controller
+@RequestMapping(value = "/admin")
+public class AdminController {
+
+    @Autowired
+    private AdminServiceImpl adminService;
+
+    @Autowired
+    private XlsxReport xlsxReport;
+
+    @GetMapping()
+    public ModelAndView getAllTeamLeaders(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("teamLeaderList", adminService.getAllTeamLeader());
+        modelAndView.addObject("adminName", adminService.getAdminFromSession().getFirstName());
+        modelAndView.setViewName("adminteamleader");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/teammemberlist")
+    public ModelAndView getAllTeamMember(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("teamMemberlist", adminService.getAllTeamMember());
+        modelAndView.addObject("adminName", adminService.getAdminFromSession().getFirstName());
+        modelAndView.setViewName("adminteamleader");
+        return modelAndView;
+    }
+
+//    @GetMapping(value = "/search")
+//    public ModelAndView searchTeamLeader(){
+//        ModelAndView modelAndView = new ModelAndView("adminsearch");
+//        return modelAndView;
+//    }
+
+    @GetMapping(value = "/details/{id}/{email}")
+    public ModelAndView getDetails(@PathVariable("id") int id,
+                                   @PathVariable("email")String teamLeaderMail){
+        ModelAndView modelAndView =  new ModelAndView();
+        modelAndView.addObject("teamLeader", adminService.getDetails(id));
+        modelAndView.addObject("memberlist", adminService.getTeamMembersByLeader(teamLeaderMail));
+        modelAndView.setViewName("details");
+        return modelAndView;
+    }
+
+
+
+    @RequestMapping(value = "/getFile", method =  RequestMethod.GET)
+    public void allTeamMemberReport(HttpServletResponse response) throws Exception {
+        XSSFWorkbook wb = null;
+        try {
+            wb = this.xlsxReport.generateXlsx();
+
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-disposition", "attachment; filename=czlonkowie_druzyn.xlsx");
+            wb.write(response.getOutputStream());
+        } catch (IOException ioe) {
+            throw new RuntimeException("Error writing spreadsheet to output stream");
+        } finally {
+            if (wb != null) {
+                wb.close();
+            }
+        }
+    }
+>>>>>>> 24239b859f093b49cd0699981575f20a57e9c49a
 }

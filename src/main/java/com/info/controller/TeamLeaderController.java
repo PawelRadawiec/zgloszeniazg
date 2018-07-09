@@ -4,14 +4,25 @@ import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
 import com.info.service.TeamLeaderService;
 import com.info.service.TeamMemberService;
+import com.info.service.XlsxReport;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 public class TeamLeaderController {
@@ -22,8 +33,11 @@ public class TeamLeaderController {
     @Autowired
     private TeamMemberService teamMemberService;
 
+    @Autowired
+    private XlsxReport xlsxReport;
 
-    @RequestMapping(value="/registration", method = RequestMethod.GET)
+
+    @RequestMapping(value="/teamleader/registration", method = RequestMethod.GET)
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         TeamLeader teamLeader = new TeamLeader();
@@ -48,16 +62,17 @@ public class TeamLeaderController {
 
     }
 
-    @GetMapping(value = "/teamleaderpage")
+    @GetMapping(value = "/teamleader")
     public ModelAndView teamLeaderPage(){
         ModelAndView modelAndView = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         modelAndView.addObject("teamLeaderName", teamLeaderService.helloTeamLeader());
-        modelAndView.addObject("memberlist", teamMemberService.getAllMembers());
+        modelAndView.addObject("memberlist", teamMemberService.getAllMembers(authentication.getName()));
         modelAndView.setViewName("teamleaderpage");
         return modelAndView;
     }
 
-    @GetMapping(value = "/registerTeamMember")
+    @GetMapping(value = "/teamleader/registerTeamMember")
     public ModelAndView registerTeamMember(){
         ModelAndView modelAndView = new ModelAndView();
         TeamMember teamMember = new TeamMember();
@@ -66,7 +81,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/registerTeamMember")
+    @PostMapping(value = "/teamleader/registerTeamMember")
     public ModelAndView createTeamMember(@Valid TeamMember teamMember, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
@@ -80,15 +95,16 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/memberlist")
+    @GetMapping(value = "/teamleader/memberlist")
     public ModelAndView getListOfMembers(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("memberlist", teamMemberService.getAllMembers());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        modelAndView.addObject("memberlist", teamMemberService.getAllMembers(auth.getName()));
         modelAndView.setViewName("teamleaderpage");
         return modelAndView;
     }
 
-    @GetMapping(value = "/edit/{id}")
+    @GetMapping(value = "/teamleader/edit/{id}")
     public ModelAndView changeTeamMember(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         TeamMember teamMember = this.teamMemberService.findById(id);
@@ -97,7 +113,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/edit/{id}")
+    @PostMapping(value = "/teamleader/edit/{id}")
     public ModelAndView editTeamMember(@Valid TeamMember teamMember,  @PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamMember", teamMember);
@@ -106,7 +122,7 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @GetMapping(value = "/teamleader/delete/{id}")
     public ModelAndView deleteMember(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
@@ -114,12 +130,31 @@ public class TeamLeaderController {
         return modelAndView;
     }
 
-    @DeleteMapping  (value = "/delete/{id}")
+    @DeleteMapping  (value = "/teamleader/delete/{id}")
     public ModelAndView deleteMemberById(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
         modelAndView.setViewName("redirect:/teamleaderpage");
         return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/teamleader/getFile", method =  RequestMethod.GET)
+    public void downloadSPreddSheet(HttpServletResponse response) throws Exception{
+        XSSFWorkbook wb = null;
+        try {
+            wb = this.xlsxReport.generateXlsx();
+
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-disposition", "attachment; filename=team_member.xlsx");
+            wb.write(response.getOutputStream());
+        } catch (IOException ioe) {
+            throw new RuntimeException("Error writing spreadsheet to output stream");
+        } finally {
+            if (wb != null) {
+                wb.close();
+            }
+        }
     }
 
 }

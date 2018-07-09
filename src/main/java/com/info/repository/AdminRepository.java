@@ -1,5 +1,6 @@
 package com.info.repository;
 
+<<<<<<< HEAD
 import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
 import com.info.service.TeamLeaderService;
@@ -19,4 +20,13 @@ public interface AdminRepository  extends JpaRepository {
     List<TeamLeader> getTeamLeaderList();
 
     List<TeamMember> getTeamMemberList();
+=======
+import com.info.model.Admin;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository("adminRepository")
+public interface AdminRepository extends JpaRepository<Admin, Long> {
+    Admin findAdminByEmail(String email);
+>>>>>>> 24239b859f093b49cd0699981575f20a57e9c49a
 }

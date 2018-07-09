@@ -26,13 +26,14 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         TeamLeader teamLeader = teamLeaderRepository.findByEmail(auth.getName());
         teamMember.setLeaderName( teamLeader.getFirstName() + " " +  teamLeader.getLastName());
+        teamMember.setTeamLeaderEmail(teamLeader.getEmail());
         teamMember.setTeamName(teamLeader.getTeamName());
         memberRepository.save(teamMember);
     }
 
     @Override
-    public List<TeamMember> getAllMembers() {
-        List<TeamMember> memberList = memberRepository.getAllMembers();
+    public List<TeamMember> getAllMembers(String teamLeaderEmail) {
+        List<TeamMember> memberList = memberRepository.getAllMembers(teamLeaderEmail);
         return memberList;
     }
 
@@ -44,7 +45,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Override
     public void editTeamMember(TeamMember teamMember, int id) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         TeamLeader teamLeader = teamLeaderRepository.findByEmail(authentication.getName());
         memberRepository.editUser(teamMember.getFirstName(), teamMember.getLastName(), teamMember.getHomeCity(), teamMember.getStreet(), teamMember.getPhoneNumber(), teamMember.getTeamLeaderPhone(), teamMember.getMealCategory(), teamMember.getId());
 

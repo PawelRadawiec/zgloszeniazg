@@ -11,4 +11,5 @@ import java.util.List;
 @Repository("teamleaderRepository")
 public interface TeamLeaderRepository extends JpaRepository<TeamLeader, Long> {
     TeamLeader findByEmail(String email);
+
 }
