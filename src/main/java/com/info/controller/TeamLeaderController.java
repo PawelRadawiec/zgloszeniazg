@@ -37,7 +37,7 @@ public class TeamLeaderController {
     private XlsxReport xlsxReport;
 
 
-    @RequestMapping(value="/teamleader/registration", method = RequestMethod.GET)
+    @RequestMapping(value="/registration", method = RequestMethod.GET)
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         TeamLeader teamLeader = new TeamLeader();
