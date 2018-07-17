@@ -34,7 +34,7 @@
     <p>Id: <td th:text="${teamLeader.id}"></td></p>
     <p>Imie: <td th:text="${teamLeader.firstName}"></td></p>
     <p>Naziwsko: <td th:text="${teamLeader.lastName}"></td></p>
-    <p>E-mail: <td th:text="${teamLeader.email}"></td></p>s
+    <p>E-mail: <td th:text="${teamLeader.email}"></td></p>
 </div>
 
 <div class = "container">
@@ -52,6 +52,7 @@
             <th>Dieta</th>
             <th>Drużynowy</th>
             <th>Drużyna</th>
+            <th>Opcje</th>
         </tr>
         <tbody>
         <tr th:each="memberteam : ${memberlist}">
