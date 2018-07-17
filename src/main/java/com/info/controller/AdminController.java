@@ -55,8 +55,19 @@ public class AdminController {
                                    @PathVariable("email")String teamLeaderMail){
         ModelAndView modelAndView =  new ModelAndView();
         modelAndView.addObject("teamLeader", adminService.getDetails(id));
+        modelAndView.addObject("path", "admin");
         modelAndView.addObject("memberlist", adminService.getTeamMembersByLeader(teamLeaderMail));
         modelAndView.setViewName("details");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/edit/{id}")
+    public ModelAndView editTeamMember(@PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        TeamMember teamMemberById = adminService.getById(id);
+        modelAndView.addObject("path", "admin");
+        modelAndView.addObject("teamMember", teamMemberById);
+        modelAndView.setViewName("edit");
         return modelAndView;
     }
 
@@ -67,7 +78,6 @@ public class AdminController {
         XSSFWorkbook wb = null;
         try {
             wb = this.xlsxReport.generateXlsx();
-
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-disposition", "attachment; filename=czlonkowie_druzyn.xlsx");
             wb.write(response.getOutputStream());

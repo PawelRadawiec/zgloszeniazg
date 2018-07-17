@@ -16,4 +16,7 @@ public interface AdminTeamMemberRepository extends JpaRepository<TeamMember, Lon
 
     @Query(value = "SELECT * FROM TEAM_MEMBER", nativeQuery = true)
     List<TeamMember> getAll();
+
+    @Query(value = "SELECT * FROM TEAM_MEMBER WHERE id=?", nativeQuery = true)
+    TeamMember getById(@Param("id") int id);
 }

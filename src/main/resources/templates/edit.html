@@ -30,7 +30,7 @@
             <h2>Edytuj dane członka drużyny</h2>
             <form autocomplete="off" action="#"
                   th:object="${teamMember}" method="post" class="form-horizontal"
-                  th:action="@{'/teamleader/edit/' + ${id}}"
+                  th:action="@{'/' + ${path} + '/edit/' + ${id}}"
                   role="form">
                 <div class="form-group">
                     <div class="col-sm-9">

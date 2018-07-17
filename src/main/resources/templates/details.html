@@ -67,7 +67,7 @@
             <td th:text="${memberteam.leaderName}"></td>
             <td th:text="${memberteam.teamName}"></td>
             <td colspan="2">
-                <a th:href="@{'/edit/' + ${memberteam.id}}" class="btn btn-info" >Edytuj</a>
+                <a th:href="@{'/' + ${path} + '/edit/' + ${memberteam.id}}" class="btn btn-info" >Edytuj</a>
                 <a th:href="@{'/delete/' + ${memberteam.id}}" class="btn btn-danger"> Usuń</a>
             </td>
         </tr>
