@@ -38,8 +38,10 @@ public class AdminController {
     @GetMapping(value = "/teammemberlist")
     public ModelAndView getAllTeamMember(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("teamMemberlist", adminService.getAllTeamMember());
+        List<TeamMember> teamMemberList = adminService.getAllTeamMember();
+        modelAndView.addObject("teamMemberlist", teamMemberList);
         modelAndView.addObject("adminName", adminService.getAdminFromSession().getFirstName());
+        modelAndView.addObject("memberAmount", teamMemberList.size());
         modelAndView.setViewName("adminteamleader");
         return modelAndView;
     }

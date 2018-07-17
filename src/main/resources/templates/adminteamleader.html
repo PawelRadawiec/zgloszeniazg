@@ -52,6 +52,7 @@
     <div class = "container" th:if="${not #lists.isEmpty(teamMemberlist)}">
         <br/> <br/>
         <h2>Lista członków drużyn</h2>
+        Ilość: <p th:text="${memberAmount}"></p>
         <table class="table table-striped">
             <tr>
                 <th>ID</th>
@@ -65,6 +66,7 @@
                 <th>Drużynowy</th>
                 <th>Drużyna</th>
                 <th>Mail drużynowego</th>
+                <th>Opcje</th>
             </tr>
             <tbody>
             <tr th:each="teamMember : ${teamMemberlist}" th:onclick="'javascript:rowClicked(\'' + ${teamMember.id} + '\');'">
@@ -80,8 +82,8 @@
                 <td th:text="${teamMember.teamName}"></td>
                 <td th:text="${teamMember.teamLeaderEmail}"></td>
                 <td colspan="2">
-                    <a th:href="@{'/edit/' + ${teamMember.id}}" class="btn btn-info" >Edytuj</a>
-                    <a th:href="@{'/delete/' + ${teamMember.id}}" class="btn btn-danger"> Usuń</a>
+                    <a th:href="@{'/admin/edit/' + ${teamMember.id}}" class="btn btn-info" >Edytuj</a>
+                    <a th:href="@{'/admin/delete/' + ${teamMember.id}}" class="btn btn-danger"> Usuń</a>
                 </td>
             </tr>
             </tbody>
