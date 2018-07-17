@@ -126,7 +126,7 @@ public class TeamLeaderController {
     public ModelAndView deleteMember(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
-        modelAndView.setViewName("redirect:/teamleaderpage");
+        modelAndView.setViewName("redirect:/teamleader");
         return modelAndView;
     }
 
@@ -134,7 +134,7 @@ public class TeamLeaderController {
     public ModelAndView deleteMemberById(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
-        modelAndView.setViewName("redirect:/teamleaderpage");
+        modelAndView.setViewName("redirect:/teamleader");
         return modelAndView;
     }
 
