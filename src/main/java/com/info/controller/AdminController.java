@@ -7,6 +7,7 @@ import com.info.service.XlsxReport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,7 +85,12 @@ public class AdminController {
         return modelAndView;
     }
 
-
+    @GetMapping(value = "/statistics")
+    public ModelAndView statistics(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("statistic");
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/getFile", method =  RequestMethod.GET)
     public void allTeamMemberReport(HttpServletResponse response) throws Exception {
