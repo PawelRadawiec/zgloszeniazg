@@ -54,11 +54,12 @@
                     <th>Nazwisko</th>
                     <th>Miasto</th>
                     <th>Ulica</th>
-                    <th>Numer telefonu</th>
-                    <th>Numer telefonu drużynowego</th>
+                    <th>Telefon</th>
+                    <th>Telefon drużynowego</th>
                     <th>Dieta</th>
                     <th>Drużynowy</th>
                     <th>Drużyna</th>
+                    <th>Data dodania</th>
                     <th>Opcje</th>
                 </tr>
                 <tbody>
@@ -73,6 +74,7 @@
                         <td th:text="${memberteam.mealCategory}"></td>
                         <td th:text="${memberteam.leaderName}"></td>
                         <td th:text="${memberteam.teamName}"></td>
+                        <td th:text="${memberteam.data}"></td>
                         <td colspan="2">
                                 <a th:href="@{'/teamleader/edit/' + ${memberteam.id}}" class="btn btn-info" >Edytuj</a>
                                 <a th:href="@{'/teamleader/delete/' + ${memberteam.id}}" class="btn btn-danger"> Usuń</a>

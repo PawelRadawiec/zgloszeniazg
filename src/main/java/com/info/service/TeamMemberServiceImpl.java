@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service("teamMemberService")
@@ -23,11 +25,14 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Override
     public void save(TeamMember teamMember) {
+        Date date = new Date();
+        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         TeamLeader teamLeader = teamLeaderRepository.findByEmail(auth.getName());
         teamMember.setLeaderName( teamLeader.getFirstName() + " " +  teamLeader.getLastName());
         teamMember.setTeamLeaderEmail(teamLeader.getEmail());
         teamMember.setTeamName(teamLeader.getTeamName());
+        teamMember.setData(currentDate.format(date));
         memberRepository.save(teamMember);
     }
 
@@ -47,7 +52,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public void editTeamMember(TeamMember teamMember, int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         TeamLeader teamLeader = teamLeaderRepository.findByEmail(authentication.getName());
-        memberRepository.editUser(teamMember.getFirstName(), teamMember.getLastName(), teamMember.getHomeCity(), teamMember.getStreet(), teamMember.getPhoneNumber(), teamMember.getTeamLeaderPhone(), teamMember.getMealCategory(), teamMember.getId());
+        memberRepository.editUser(teamMember.getFirstName(), teamMember.getLastName(), teamMember.getHomeCity(),
+                teamMember.getStreet(), teamMember.getPhoneNumber(), teamMember.getTeamLeaderPhone(), teamMember.getMealCategory(),
+                teamMember.getId());
 
         //memberRepository.save(teamMember);
     }

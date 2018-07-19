@@ -17,8 +17,9 @@ $(document).ready(function() {
                     '<td>' + teamleader.troops + '</td>' +
                     '<td>' + teamleader.role + '</td>' +
                     '<td>' + teamleader.active + '</td>' +
-                    '<td><a href="/admin/details/34"></a> </td>'
+                    '<td>' + '<a href="/admin/details/&{teamleader.id}"  +  ' + teamleader.id + ' +   "/"  + ' + teamleader.email + '>Szczegóły</a>' + ' </td>'
                     '</tr>';
+
 
                 $('#customerTable tbody').append(customerRow);
 

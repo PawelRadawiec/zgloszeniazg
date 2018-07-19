@@ -13,4 +13,7 @@ public interface AdminService {
     Object getDetails(int id);
     List<TeamMember> getTeamMembersByLeader(String teamLeaderEmail);
     List<TeamLeader> searchByLastName(String lastName);
+    TeamMember getById(int id);
+    void editTeamMember(TeamMember teamMember, int id);
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -38,8 +39,10 @@ public class AdminController {
     @GetMapping(value = "/teammemberlist")
     public ModelAndView getAllTeamMember(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("teamMemberlist", adminService.getAllTeamMember());
+        List<TeamMember> teamMemberList = adminService.getAllTeamMember();
+        modelAndView.addObject("teamMemberlist", teamMemberList);
         modelAndView.addObject("adminName", adminService.getAdminFromSession().getFirstName());
+        modelAndView.addObject("memberAmount", teamMemberList.size());
         modelAndView.setViewName("adminteamleader");
         return modelAndView;
     }
@@ -55,8 +58,29 @@ public class AdminController {
                                    @PathVariable("email")String teamLeaderMail){
         ModelAndView modelAndView =  new ModelAndView();
         modelAndView.addObject("teamLeader", adminService.getDetails(id));
+        modelAndView.addObject("path", "admin");
         modelAndView.addObject("memberlist", adminService.getTeamMembersByLeader(teamLeaderMail));
         modelAndView.setViewName("details");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/edit/{id}")
+    public ModelAndView editTeamMember(@PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        TeamMember teamMemberById = adminService.getById(id);
+        modelAndView.addObject("path", "admin");
+        modelAndView.addObject("teamMember", teamMemberById);
+        modelAndView.setViewName("edit");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/edit/{id}")
+    public ModelAndView changeTeamMember(@Valid TeamMember teamMember, @PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("teamMember", teamMember);
+        modelAndView.addObject("path", "admin");
+        this.adminService.editTeamMember(teamMember, id);
+        modelAndView.setViewName("edit");
         return modelAndView;
     }
 
@@ -67,7 +91,6 @@ public class AdminController {
         XSSFWorkbook wb = null;
         try {
             wb = this.xlsxReport.generateXlsx();
-
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-disposition", "attachment; filename=czlonkowie_druzyn.xlsx");
             wb.write(response.getOutputStream());
