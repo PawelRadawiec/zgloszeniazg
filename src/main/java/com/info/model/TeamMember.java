@@ -46,6 +46,9 @@ public class TeamMember {
     @Column(name = "team_name")
     private String teamName;
 
+    @Column(name = "register_data")
+    private String data;
+
     @Column(name = "team_leader_email")
     private String teamLeaderEmail;
 
@@ -131,6 +134,10 @@ public class TeamMember {
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }
+
+    public String getData() { return data; }
+
+    public void setData(String data) {this.data = data;}
 
     public String getTeamLeaderEmail() { return teamLeaderEmail; }
 
