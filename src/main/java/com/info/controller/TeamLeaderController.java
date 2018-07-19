@@ -108,6 +108,7 @@ public class TeamLeaderController {
     public ModelAndView changeTeamMember(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         TeamMember teamMember = this.teamMemberService.findById(id);
+        modelAndView.addObject("path", "teamleader");
         modelAndView.addObject("teamMember", teamMember);
         modelAndView.setViewName("edit");
         return modelAndView;
@@ -117,6 +118,7 @@ public class TeamLeaderController {
     public ModelAndView editTeamMember(@Valid TeamMember teamMember,  @PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamMember", teamMember);
+        modelAndView.addObject("path", "teamleader");
         teamMemberService.editTeamMember(teamMember, id);
         modelAndView.setViewName("edit");
         return modelAndView;

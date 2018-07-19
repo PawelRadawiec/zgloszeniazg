@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -69,6 +70,16 @@ public class AdminController {
         TeamMember teamMemberById = adminService.getById(id);
         modelAndView.addObject("path", "admin");
         modelAndView.addObject("teamMember", teamMemberById);
+        modelAndView.setViewName("edit");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/edit/{id}")
+    public ModelAndView changeTeamMember(@Valid TeamMember teamMember, @PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("teamMember", teamMember);
+        modelAndView.addObject("path", "admin");
+        this.adminService.editTeamMember(teamMember, id);
         modelAndView.setViewName("edit");
         return modelAndView;
     }

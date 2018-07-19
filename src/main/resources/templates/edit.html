@@ -104,7 +104,9 @@
                 </div>
                 <span th:utext="${successMessage}"></span>
 
-                <a href="/teamleader" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Back to </a>
+                <a th:href="@{'/' + ${path}}" +  class="btn btn-success"> <i class="fa fa-arrow-circle-o-left">
+
+                </i>&nbsp;Back to </a>
 
             </form>
         </div>

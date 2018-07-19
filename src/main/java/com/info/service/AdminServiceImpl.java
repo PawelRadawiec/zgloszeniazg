@@ -30,6 +30,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminTeamMemberRepository adminTeamMemberRepository;
 
+    @Autowired
+    private TeamMemberServiceImpl teamMemberService;
+
     @Override
     public List<TeamLeader> getAllTeamLeader() {
         return adminTeamLeaderRepository.getAll();
@@ -59,6 +62,13 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public TeamMember getById(int id) {
         return adminTeamMemberRepository.getById(id);
+    }
+
+    @Override
+    public void editTeamMember(TeamMember teamMember, int id) {
+        if(teamMember != null){
+            this.teamMemberService.editTeamMember(teamMember, id);
+        }
     }
 
 
