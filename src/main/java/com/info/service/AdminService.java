@@ -1,5 +1,6 @@
 package com.info.service;
 
+import com.info.model.SearchModel;
 import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ public interface AdminService {
     List<TeamMember> getAllTeamMember();
     Object getDetails(int id);
     List<TeamMember> getTeamMembersByLeader(String teamLeaderEmail);
-    List<TeamLeader> searchByLastName(String lastName);
+    List<TeamLeader> searchByLastName(SearchModel searchModel);
     TeamMember getById(int id);
     void editTeamMember(TeamMember teamMember, int id);
 
