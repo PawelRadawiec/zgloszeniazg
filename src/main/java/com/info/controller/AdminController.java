@@ -1,12 +1,14 @@
 package com.info.controller;
 
 import com.info.model.SearchForm;
+import com.info.model.SearchModel;
 import com.info.model.TeamMember;
 import com.info.service.AdminServiceImpl;
 import com.info.service.XlsxReport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +30,8 @@ public class AdminController {
     private XlsxReport xlsxReport;
 
     @GetMapping()
-    public ModelAndView getAllTeamLeaders(){
+    public ModelAndView getAllTeamLeaders(@ModelAttribute("searchModel") SearchModel searchModel,
+                                          BindingResult result){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamLeaderList", adminService.getAllTeamLeader());
         modelAndView.addObject("adminName", adminService.getAdminFromSession().getFirstName());
@@ -37,7 +40,8 @@ public class AdminController {
     }
 
     @GetMapping(value = "/teammemberlist")
-    public ModelAndView getAllTeamMember(){
+    public ModelAndView getAllTeamMember(/*@ModelAttribute("searchModel") SearchModel searchModel,
+                                         BindingResult result*/){
         ModelAndView modelAndView = new ModelAndView();
         List<TeamMember> teamMemberList = adminService.getAllTeamMember();
         modelAndView.addObject("teamMemberlist", teamMemberList);
@@ -46,6 +50,16 @@ public class AdminController {
         modelAndView.setViewName("adminteamleader");
         return modelAndView;
     }
+
+    @GetMapping(value = "/teamleaders/search")
+    public ModelAndView searchLeader(@ModelAttribute("searchModel") SearchModel searchModel,
+                                     BindingResult result){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("leadersBySearchModel", adminService.searchByLastName(searchModel));
+        modelAndView.setViewName("list");
+        return modelAndView;
+    }
+
 
 //    @GetMapping(value = "/search")
 //    public ModelAndView searchTeamLeader(){
@@ -84,7 +98,12 @@ public class AdminController {
         return modelAndView;
     }
 
-
+    @GetMapping(value = "/statistics")
+    public ModelAndView statistics(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("statistic");
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/getFile", method =  RequestMethod.GET)
     public void allTeamMemberReport(HttpServletResponse response) throws Exception {

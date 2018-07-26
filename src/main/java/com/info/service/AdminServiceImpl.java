@@ -1,6 +1,7 @@
 package com.info.service;
 
 import com.info.model.Admin;
+import com.info.model.SearchModel;
 import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
 import com.info.repository.AdminRepository;
@@ -13,28 +14,34 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
     private AdminTeamLeaderRepository adminTeamLeaderRepository;
-
-    @Autowired
     private TeamMemberRepository teamMemberRepository;
-
-    @Autowired
     private AdminRepository adminRepository;
-
-    @Autowired
     private AdminTeamMemberRepository adminTeamMemberRepository;
+    private TeamMemberServiceImpl teamMemberService;
 
     @Autowired
-    private TeamMemberServiceImpl teamMemberService;
+    public AdminServiceImpl(AdminTeamLeaderRepository adminTeamLeaderRepository,
+                            TeamMemberRepository teamMemberRepository, AdminRepository adminRepository,
+                            AdminTeamMemberRepository adminTeamMemberRepository,
+                            TeamMemberServiceImpl teamMemberService) {
+
+        this.adminTeamLeaderRepository = adminTeamLeaderRepository;
+        this.adminRepository = adminRepository;
+        this.adminTeamMemberRepository = adminTeamMemberRepository;
+        this.teamMemberService = teamMemberService;
+        this.teamMemberRepository = teamMemberRepository;
+    }
 
     @Override
     public List<TeamLeader> getAllTeamLeader() {
+        int size = adminTeamLeaderRepository.getAll().size();
         return adminTeamLeaderRepository.getAll();
     }
 
@@ -55,8 +62,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<TeamLeader> searchByLastName(String lastName) {
-        return adminTeamLeaderRepository.searchByLastName(lastName);
+    public List<TeamLeader> searchByLastName(SearchModel searchModel) {
+        String lastName = searchModel.getLastName();
+        if(lastName != null){
+           return adminTeamLeaderRepository.searchByLastName(searchModel.getLastName());
+        }
+        return new ArrayList<>();
     }
 
     @Override
