@@ -3,6 +3,7 @@ package com.info.repository;
 import com.info.model.TeamLeader;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public interface AdminTeamLeaderRepository extends JpaRepository<TeamLeader, Lon
     @Query(value = "SELECT * FROM TEAM_LEADER WHERE id=?", nativeQuery = true)
     TeamLeader getTeamLeaderById(int id);
 
-    @Query(value = "SELECT * FROM TEAM_LEADER WHERE LOWER(LAST_NAME)=LOWER(?)", nativeQuery = true)
-    List<TeamLeader> searchByLastName(String lastname);
+    @Query(value = "SELECT * FROM TEAM_LEADER WHERE LOWER(LAST_NAME)=LOWER(?) ", nativeQuery = true)
+    List<TeamLeader> searchByLastName(@Param("lastName") String lastName);
 
 
 }

@@ -55,9 +55,19 @@ public class AdminController {
     public ModelAndView searchLeader(@ModelAttribute("searchModel") SearchModel searchModel,
                                      BindingResult result){
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("path", "teamleaders");
+        modelAndView.addObject("user", adminService.getAdminFromSession().getFirstName());
         modelAndView.addObject("leadersBySearchModel", adminService.searchByLastName(searchModel));
         modelAndView.setViewName("list");
         return modelAndView;
+    }
+
+    @PostMapping(value = "/teammembers/search")
+    public String searchTeamMember(@ModelAttribute("searchModel") SearchModel searchModel, Model model){
+        model.addAttribute("path", "teammembers");
+        model.addAttribute("user", adminService.getAdminFromSession().getFirstName());
+        model.addAttribute("membersList", adminService.getMembersByData(searchModel.getLastName()));
+        return "list";
     }
 
 

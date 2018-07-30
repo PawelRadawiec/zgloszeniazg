@@ -26,6 +26,7 @@ public class AdminServiceImpl implements AdminService {
     private AdminTeamMemberRepository adminTeamMemberRepository;
     private TeamMemberServiceImpl teamMemberService;
 
+
     @Autowired
     public AdminServiceImpl(AdminTeamLeaderRepository adminTeamLeaderRepository,
                             TeamMemberRepository teamMemberRepository, AdminRepository adminRepository,
@@ -63,11 +64,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<TeamLeader> searchByLastName(SearchModel searchModel) {
-        String lastName = searchModel.getLastName();
-        if(lastName != null){
-           return adminTeamLeaderRepository.searchByLastName(searchModel.getLastName());
+        if(searchModel.getLastName() != null){
+            return adminTeamLeaderRepository.searchByLastName(searchModel.getLastName());
         }
-        return new ArrayList<>();
+          return new ArrayList<>();
     }
 
     @Override
@@ -80,6 +80,14 @@ public class AdminServiceImpl implements AdminService {
         if(teamMember != null){
             this.teamMemberService.editTeamMember(teamMember, id);
         }
+    }
+
+    @Override
+    public List<TeamMember> getMembersByData(String surname) {
+        if(surname != null){
+            return adminTeamMemberRepository.getMembersByData(surname);
+        }
+        return new ArrayList<>();
     }
 
 
