@@ -16,5 +16,6 @@ public interface AdminService {
     List<TeamLeader> searchByLastName(SearchModel searchModel);
     TeamMember getById(int id);
     void editTeamMember(TeamMember teamMember, int id);
+    List<TeamMember> getMembersByData(String surname);
 
 }

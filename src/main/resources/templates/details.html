@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>zgloszeniazg</title>
     <!-- Latest compiled and minified CSS -->
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
@@ -30,14 +30,31 @@
 </nav>
 </br></br>
 </br></br>
-<div class="container">
-    <p>Id: <td th:text="${teamLeader.id}"></td></p>
-    <p>Imie: <td th:text="${teamLeader.firstName}"></td></p>
-    <p>Naziwsko: <td th:text="${teamLeader.lastName}"></td></p>
-    <p>E-mail: <td th:text="${teamLeader.email}"></td></p>
-</div>
-
 <div class = "container">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">id</th>
+            <td th:text="${teamLeader.id}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Imię</th>
+            <td th:text="${teamLeader.firstName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Nazwisko</th>
+            <td th:text="${teamLeader.lastName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">mail</th>
+            <td th:text="${teamLeader.email}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Numer telefonu</th>
+            <td th:text="${teamLeader.phonenumber}"></td>
+        </tr>
+        </tbody>
+    </table>
     <br/> <br/>
     <h2>Lista członków drużyny</h2>
     <table class="table table-striped">
