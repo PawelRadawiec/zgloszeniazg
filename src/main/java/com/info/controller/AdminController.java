@@ -4,11 +4,13 @@ import com.info.model.SearchForm;
 import com.info.model.SearchModel;
 import com.info.model.TeamMember;
 import com.info.service.AdminServiceImpl;
+import com.info.service.CanvasjsChartService;
 import com.info.service.XlsxReport;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -27,11 +30,14 @@ public class AdminController {
     private AdminServiceImpl adminService;
 
     @Autowired
+    private CanvasjsChartService canvasjsChartService;
+
+    @Autowired
     private XlsxReport xlsxReport;
 
     @GetMapping()
     public ModelAndView getAllTeamLeaders(@ModelAttribute("searchModel") SearchModel searchModel,
-                                          BindingResult result){
+                                          BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamLeaderList", adminService.getAllTeamLeader());
         modelAndView.addObject("adminName", adminService.getAdminFromSession().getFirstName());
@@ -41,7 +47,7 @@ public class AdminController {
 
     @GetMapping(value = "/teammemberlist")
     public ModelAndView getAllTeamMember(/*@ModelAttribute("searchModel") SearchModel searchModel,
-                                         BindingResult result*/){
+                                         BindingResult result*/) {
         ModelAndView modelAndView = new ModelAndView();
         List<TeamMember> teamMemberList = adminService.getAllTeamMember();
         modelAndView.addObject("teamMemberlist", teamMemberList);
@@ -53,7 +59,7 @@ public class AdminController {
 
     @GetMapping(value = "/teamleaders/search")
     public ModelAndView searchLeader(@ModelAttribute("searchModel") SearchModel searchModel,
-                                     BindingResult result){
+                                     BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("path", "teamleaders");
         modelAndView.addObject("user", adminService.getAdminFromSession().getFirstName());
@@ -62,8 +68,8 @@ public class AdminController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/teammembers/search")
-    public String searchTeamMember(@ModelAttribute("searchModel") SearchModel searchModel, Model model){
+    @GetMapping(value = "/teammembers/search")
+    public String searchTeamMember(@ModelAttribute("searchModel") SearchModel searchModel, Model model) {
         model.addAttribute("path", "teammembers");
         model.addAttribute("user", adminService.getAdminFromSession().getFirstName());
         model.addAttribute("membersList", adminService.getMembersByData(searchModel.getLastName()));
@@ -79,8 +85,8 @@ public class AdminController {
 
     @GetMapping(value = "/details/{id}/{email}")
     public ModelAndView getDetails(@PathVariable("id") int id,
-                                   @PathVariable("email")String teamLeaderMail){
-        ModelAndView modelAndView =  new ModelAndView();
+                                   @PathVariable("email") String teamLeaderMail) {
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamLeader", adminService.getDetails(id));
         modelAndView.addObject("path", "admin");
         modelAndView.addObject("memberlist", adminService.getTeamMembersByLeader(teamLeaderMail));
@@ -89,7 +95,7 @@ public class AdminController {
     }
 
     @GetMapping(value = "/edit/{id}")
-    public ModelAndView editTeamMember(@PathVariable("id") int id){
+    public ModelAndView editTeamMember(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         TeamMember teamMemberById = adminService.getById(id);
         modelAndView.addObject("path", "admin");
@@ -99,7 +105,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/edit/{id}")
-    public ModelAndView changeTeamMember(@Valid TeamMember teamMember, @PathVariable("id") int id){
+    public ModelAndView changeTeamMember(@Valid TeamMember teamMember, @PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamMember", teamMember);
         modelAndView.addObject("path", "admin");
@@ -109,13 +115,11 @@ public class AdminController {
     }
 
     @GetMapping(value = "/statistics")
-    public ModelAndView statistics(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("statistic");
-        return modelAndView;
+    public String statistics() {
+        return "statistic";
     }
 
-    @RequestMapping(value = "/getFile", method =  RequestMethod.GET)
+    @RequestMapping(value = "/getFile", method = RequestMethod.GET)
     public void allTeamMemberReport(HttpServletResponse response) throws Exception {
         XSSFWorkbook wb = null;
         try {
