@@ -46,9 +46,22 @@
             </div>
         </div>
     </div>
-    <hr>
-
-    <h1>Statystyki</h1>
+    
+</div>
+<div class = "container">
+<h1>Statystyki zgłoszeń</h1>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">Liczba członków drużyn</th>
+            <td th:text="${teamMemberSize}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Liczba drużynwych</th>
+            <td th:text="${teamLeaderSize}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
