@@ -50,10 +50,12 @@ public class TeamLeader {
 
     @Column(name = "active")
     private int active;
+    
+    @Column(name = "date")
+    private String date; 
 
 
     public TeamLeader(){}
-
 
     public int getId() { return id; }
 
@@ -70,7 +72,6 @@ public class TeamLeader {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
-
 
     public String getTeamName() { return teamName; }
 
@@ -95,4 +96,10 @@ public class TeamLeader {
     public int getActive() { return active; }
 
     public void setActive(int active) { this.active = active; }
+
+	public String getDate() {return date;}
+
+	public void setDate(String date) {this.date = date;}
+    
+    
 }

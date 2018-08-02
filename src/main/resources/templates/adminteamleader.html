@@ -8,6 +8,7 @@
     <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="resources/js/main.js"></script>
+    <link href="sticky-footer.css" rel="stylesheet">
 </head>
 
 <body>
@@ -29,22 +30,21 @@
     <h1>Witaj <td th:text="${adminName}"></td></h1>
     <hr>
     <div class="panel-group" style="margin-top:40px">
-        <div class="form-group">
-            <div class="col-sm-9">
+        
+        <div class="btn-group">
+            
                 <a href="/admin/teammemberlist" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Lista członkow drużyn</a>
                 <a href="/admin" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Lista drużynowych</a>
-                <a href="/admin/getFile" class="btn btn-primary"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Generuj raport</a>
                 <a href="/admin/teamleaders/search" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Szukaj drużynowego</a>
                 <a href="/admin/teammembers/search" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Szukaj członka drużyny</a>
                 <a href="/admin/statistics" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Statystyki</a>
-            </div>
+                <a href="/admin/getFile" class="btn btn-primary"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Generuj raport</a>
+            
         </div>
     </div>
-    <hr>
-    <div class = "container" th:if="${not #lists.isEmpty(teamMemberlist)}">
-        <br/> <br/>
+ </div>
+    <div class="container-fluid" th:if="${not #lists.isEmpty(teamMemberlist)}">
         <h2>Lista członków drużyn</h2>
-        Ilość: <p th:text="${memberAmount}"></p>
         <table class="table table-striped">
             <tr>
                 <th>ID</th>
@@ -57,9 +57,8 @@
                 <th>Dieta</th>
                 <th>Drużynowy</th>
                 <th>Drużyna</th>
-                <th>Mail
-                    drużynowego</th>
-                <th>Data dodania</th>
+                <th>Mail drużynowego</th>
+                <th>Dodany</th>
                 <th>Opcje</th>
             </tr>
             <tbody>
@@ -86,7 +85,7 @@
         </table>
     </div>
 
-    <div class = "container" th:if="${not #lists.isEmpty(teamLeaderList)}">
+    <div class="container-fluid" th:if="${not #lists.isEmpty(teamLeaderList)}">
         <br/> <br/>
         <h2>Lista drużynowych</h2>
         <table class="table table-striped">
@@ -100,6 +99,7 @@
                 <th>Hufiec</th>
                 <th>Rola</th>
                 <th>Aktywny</th>
+                <th>Dodany</th>
                 <th>Opcje</th>
             </tr>
             <tbody>
@@ -113,6 +113,7 @@
                 <td th:text="${teamleader.troops}"></td>
                 <td th:text="${teamleader.role}"></td>
                 <td th:text="${teamleader.active}"></td>
+                <td th:text="${teamleader.date}"></td>
                 <td colspan="2">
                     <a th:href="@{'/admin/details/' + ${teamleader.id} + '/' + ${teamleader.email}}" class="btn btn-info">Szczegóły</a>
                     <a th:href="@{'/edit/' + ${teamleader.id}}" class="btn btn-warning" >Edytuj</a>
@@ -123,7 +124,5 @@
 
         </table>
     </div>
-
-</div>
 </body>
 </html>
