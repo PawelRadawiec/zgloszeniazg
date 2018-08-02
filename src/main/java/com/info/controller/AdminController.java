@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -93,17 +92,15 @@ public class AdminController {
         modelAndView.setViewName("details");
         return modelAndView;
     }
-
+    
     @GetMapping(value = "/edit/{id}")
-    public ModelAndView editTeamMember(@PathVariable("id") int id) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String editTeamMember(@PathVariable("id") int id, Model model) {
         TeamMember teamMemberById = adminService.getById(id);
-        modelAndView.addObject("path", "admin");
-        modelAndView.addObject("teamMember", teamMemberById);
-        modelAndView.setViewName("edit");
-        return modelAndView;
+        model.addAttribute("path", "admin");
+        model.addAttribute("teamMember", teamMemberById);
+        return "edit";
     }
-
+    
     @PostMapping(value = "/edit/{id}")
     public ModelAndView changeTeamMember(@Valid TeamMember teamMember, @PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
@@ -115,7 +112,9 @@ public class AdminController {
     }
 
     @GetMapping(value = "/statistics")
-    public String statistics() {
+    public String statistics(Model model) {
+    	model.addAttribute("teamMemberSize", adminService.getAllTeamMember().size());
+    	model.addAttribute("teamLeaderSize", adminService.getAllTeamLeader().size());
         return "statistic";
     }
 
