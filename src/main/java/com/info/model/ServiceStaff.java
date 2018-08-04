@@ -28,10 +28,6 @@ public class ServiceStaff {
 	@NotEmpty(message = "Pole nie może być puste")
 	private String lastName;
 
-	@Column(name = "role")
-	@NotEmpty(message = "Pole nie może być puste")
-	private String role;
-
 	@Column(name = "type_service")
 	@NotEmpty(message = "Pole nie może być puste")
 	private String typeService;
@@ -60,6 +56,9 @@ public class ServiceStaff {
 
 	@Column(name = "register_data")
 	private String data;
+
+	@Column(name = "role")
+	private String role;
 
 	public ServiceStaff() {
 	}
@@ -151,5 +150,4 @@ public class ServiceStaff {
 	public void setData(String data) {
 		this.data = data;
 	}
-
 }

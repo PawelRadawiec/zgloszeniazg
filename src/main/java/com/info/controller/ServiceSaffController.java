@@ -38,7 +38,7 @@ public class ServiceSaffController {
 		} else {
 			serviceStaffServiceIml.save(serviceStaff);
 			modelAndView.addObject("successMessage", "Poprawna rejstracja!");
-			modelAndView.addObject("serviceStaff", new TeamLeader());
+			modelAndView.addObject("serviceStaff", new ServiceStaff());
 			modelAndView.setViewName("serviceRegistration");
 		}
 		return modelAndView;
