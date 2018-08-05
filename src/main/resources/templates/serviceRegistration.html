@@ -6,102 +6,122 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .top-buffer { margin-top:70px; }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">zgloszenia ZG</a>
+            <a class="navbar-brand" href="#">zgloszeniaZG</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Zaloguj się</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/registration"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</a></li>
-            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Zaloguj się</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Zarejestruj się
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/serviceRegistration">Służby</a></li>
+                    <li><a href="/registration">Drużynowy</a></li>
+                    <li><a href="#">Indywidualny</a></li>
+                </ul>
+            </li>
+
         </ul>
     </div>
 </nav>
-
 <div class="container">
-    <div class="row">
+    <div class="row top-buffer">
         <div class="col-md-6 col-md-offset-3">
-            </br></br></br>
             <h2>Zgłoszenia służb</h2>
             <form autocomplete="off" action="#" th:action="@{/serviceRegistration}"
                   th:object="${serviceStaff}" method="post" class="form-horizontal"
                   role="form">
 
-                <div class="form-group">
+                <div class="form-group row">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
-                               class="validation-message"></label>
+                        <label for="firstName">Imię</label>
                         <input type="text" th:field="*{firstName}" placeholder="Imię"
                                class="form-control" />
+                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                               class="text-danger"></label>
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                  class="validation-message"></label>
+                        <label for="firstName">Naziwsko</label>
                         <input type="text" th:field="*{lastName}"
                                placeholder="Nazwisko" class="form-control" />
+                        <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                  class="text-danger"></label>
+
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="text" th:field="*{typeService}" placeholder="Rodzaj służby"
-                               class="form-control" /> <label
-                            th:if="${#fields.hasErrors('typeService')}" th:errors="*{typeService}"
-                            class="validation-message"></label> 
+                        <label for="typeService">Rodzaj służby</label>
+                    <select th:field="*{typeService}" class="form-control">
+                        <option th:value="program">Program</option>
+                        <option th:value="recepcja">Recepcja</option>
+                        <option th:value="promocja">Promocja</option>
+                        <option th:value="kwaterka">Służba kwatermistrzowska</option>
+                        <option th:value="HSZ">Harcerska Służba Zabezpieczenia</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label for="typeService">Rodzaj diety</label>
+                        <select th:field="*{diet}" class="form-control">
+                            <option th:value="normalna">Normalna</option>
+                            <option th:value="wegetariańska">Wegetariańska</option>
+                            <option th:value="bezglutenowa">Bezglutenowa</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="text" th:field="*{diet}" placeholder="Dieta"
-                               class="form-control" /> <label
-                            th:if="${#fields.hasErrors('diet')}" th:errors="*{diet}"
-                            class="validation-message"></label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
+                        <label for="typeService">Email</label>
                         <input type="text" th:field="*{email}" placeholder="email"
                                class="form-control" /> <label
                             th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                            class="validation-message"></label> <p class="text-danger" th:text="${userexist}" />
+                            class="text-danger">test</label> <p class="text-danger" th:text="${userexist}" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
+                        <label for="typeService">Hufiec</label>
                         <input type="text" th:field="*{troops}" placeholder="Hufiec"
                                class="form-control" /> <label
                             th:if="${#fields.hasErrors('troops')}" th:errors="*{troops}"
-                            class="validation-message"></label>
+                            class="text-danger"></label>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <div class="col-sm-9">
+                        <label for="typeService">Chorągiew</label>
                         <input type="text" th:field="*{ensign}" placeholder="Chorągiew"
                                class="form-control" /> <label
                             th:if="${#fields.hasErrors('ensign')}" th:errors="*{ensign}"
-                            class="validation-message"></label>
+                            class="text-danger"></label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
+                        <label for="typeService">Hasło</label>
                         <input type="password" th:field="*{password}" placeholder="Hasło"
                                class="form-control" /> <label
                             th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                            class="validation-message"></label>
+                            class="text-danger"></label>
                     </div>
                 </div>
 

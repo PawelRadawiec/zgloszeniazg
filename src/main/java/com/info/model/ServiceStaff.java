@@ -50,7 +50,7 @@ public class ServiceStaff {
 	private String ensign;
 
 	@Column(name = "password")
-	@Length(min = 5, message = "haslo za krotkie")
+	@Length(min = 5, message = "Hasło jest za krótkie")
 	@NotEmpty(message = "Pole nie może być puste")
 	private String password;
 
