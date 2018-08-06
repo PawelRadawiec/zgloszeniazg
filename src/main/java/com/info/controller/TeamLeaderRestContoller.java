@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class TeamLeaderRestContoller {
 
     @Autowired
@@ -21,7 +22,7 @@ public class TeamLeaderRestContoller {
         return "Hello Test";
     }
 
-    @GetMapping(value = "/team-leaders")
+    @GetMapping(value = "/rest/getall")
     public List<TeamMember> getAllTeamMember(){
         return teamMemberService.getAll();
     }
