@@ -23,7 +23,6 @@ public class TeamLeaderRestContoller {
         return "Hello Test";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/rest/getall")
     public List<TeamMember> getAllTeamMember(){
         return teamMemberService.getAll();
