@@ -1,8 +1,10 @@
 package com.info.controller;
 
 import com.info.model.Admin;
+import com.info.model.ServiceStaff;
 import com.info.model.TeamLeader;
 import com.info.repository.AdminRepository;
+import com.info.repository.ServiceStaffRepository;
 import com.info.repository.TeamLeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,10 +25,8 @@ public class HomeController {
     @Autowired
     private AdminRepository adminRepository;
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String hello(){
-        return "hello";
-    }
+    @Autowired
+    private ServiceStaffRepository serviceStaffRepository;
 
     @RequestMapping(value = "/default")
     public ModelAndView deafultAfterLogin(){
@@ -34,14 +34,19 @@ public class HomeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminRepository.findAdminByEmail(authentication.getName());
         TeamLeader teamLeader =  teamLeaderRepository.findByEmail(authentication.getName());
+        ServiceStaff serviceStaff =  serviceStaffRepository.findByEmail(authentication.getName());
+
         if(admin != null){
             return new ModelAndView("redirect:" + "/admin");
         } else if(teamLeader != null && teamLeader.getRole().equals("TEAM_LEADER")) {
             return new ModelAndView("redirect:" + "/teamleader");
-        } else{
+        }else if(serviceStaff != null && serviceStaff.getRole().equals("SERVICE_STAFF")){
+            return new ModelAndView("redirect:" + "/service/home");
+        }else {
             modelAndView.setViewName("login");
             return modelAndView;
         }
+
     }
 
     @GetMapping(value = "/access-denied")

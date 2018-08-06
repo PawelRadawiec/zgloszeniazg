@@ -22,6 +22,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AdminUserDetailsService adminUserDetailsService;
 
+    @Autowired
+    private StaffDetailsService staffDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -32,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/serviceRegistration").permitAll()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/rest/**").permitAll()
+                .antMatchers("/service/**").permitAll()
                 .antMatchers("/teamleader/edit").hasAuthority("TEAM_LEADER")
                 .antMatchers("/search").hasAuthority("ADMIN")
                 .antMatchers("/rest/getall").hasAuthority("ADMIN")
@@ -62,5 +66,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         auth.userDetailsService(myAppUserDetailsService).passwordEncoder(passwordEncoder);
         auth.userDetailsService(adminUserDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(staffDetailsService).passwordEncoder(passwordEncoder);
     }
 }

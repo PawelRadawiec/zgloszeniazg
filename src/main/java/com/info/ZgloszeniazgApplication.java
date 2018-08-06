@@ -14,11 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 public class ZgloszeniazgApplication extends WebMvcAutoConfiguration {
 
-
     public static void main(String[] args) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         SpringApplication.run(ZgloszeniazgApplication.class, args);
-        System.out.println(passwordEncoder.encode("test123"));
-
     }
 }

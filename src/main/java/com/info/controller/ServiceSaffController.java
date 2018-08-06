@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.info.model.ServiceStaff;
@@ -15,6 +16,7 @@ import com.info.model.TeamLeader;
 import com.info.service.ServiceStaffServiceIml;
 
 @Controller
+@RequestMapping(value = "/service")
 public class ServiceSaffController {
 
 	@Autowired
@@ -42,6 +44,11 @@ public class ServiceSaffController {
 			modelAndView.setViewName("serviceRegistration");
 		}
 		return modelAndView;
+	}
+
+	@GetMapping(value = "/home")
+	public String serviceHome(Model model){
+		return "servicepage";
 	}
 
 }
