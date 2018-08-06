@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rest/**").permitAll()
                 .antMatchers("/teamleader/edit").hasAuthority("TEAM_LEADER")
                 .antMatchers("/search").hasAuthority("ADMIN")
+                .antMatchers("/rest/getall").hasAuthority("ADMIN")
                 .antMatchers("/search/all").hasAuthority("ADMIN")
                 .antMatchers("/admin/search/all").hasAuthority("ADMIN")
                 .antMatchers("/teamleader/getFile").hasAuthority("TEAM_LEADER")
