@@ -45,7 +45,7 @@ public class TeamLeaderServiceImpl implements TeamLeaderService {
 			Date date = new Date();
 			SimpleDateFormat currentDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 			teamLeader.setRole(Roles.TEAM_LEADER.toString());
-			teamLeader.setActive(1);
+			teamLeader.setActive(1l);
 			teamLeader.setDate(currentDate.format(date));
 			teamLeader.setPassword(passwordEncoder.encode(teamLeader.getPassword()));
 			teamLeaderRepository.save(teamLeader);

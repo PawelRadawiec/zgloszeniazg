@@ -48,8 +48,9 @@ public class TeamLeader {
     @Column(name = "role")
     private String role;
 
+
     @Column(name = "active")
-    private int active;
+    private Long active;
     
     @Column(name = "date")
     private String date; 
@@ -93,9 +94,9 @@ public class TeamLeader {
 
     public void setRole(String role) { this.role = role; }
 
-    public int getActive() { return active; }
+    public Long getActive() { return active; }
 
-    public void setActive(int active) { this.active = active; }
+    public void setActive(Long active) { this.active = active; }
 
 	public String getDate() {return date;}
 
