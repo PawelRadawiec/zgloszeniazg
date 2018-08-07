@@ -25,5 +25,32 @@
         </ul>
     </div>
 </nav>
+
+<div class = "container">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">id</th>
+            <td th:text="${serviceStaff.id}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Imię</th>
+            <td th:text="${serviceStaff.firstName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Nazwisko</th>
+            <td th:text="${serviceStaff.lastName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">mail</th>
+            <td th:text="${serviceStaff.email}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Numer telefonu</th>
+            <td th:text="${serviceStaff.phonenumber}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

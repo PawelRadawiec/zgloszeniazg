@@ -2,7 +2,12 @@ package com.info.controller;
 
 import javax.validation.Valid;
 
+import com.info.repository.ServiceStaffRepository;
+import com.info.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.serializer.support.SerializationFailedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +27,12 @@ public class ServiceSaffController {
 	@Autowired
 	private ServiceStaffServiceIml serviceStaffServiceIml;
 
+	@Autowired
+	private ServiceStaffRepository serviceStaffRepository;
+
+	@Autowired
+	private CommonService commonService;
+
 	@GetMapping(value = "/serviceRegistration")
 	public ModelAndView serviceRegistration() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -34,8 +45,13 @@ public class ServiceSaffController {
 	@PostMapping(value = "/serviceRegistration")
 	public ModelAndView saveServiceStaff(@Valid ServiceStaff serviceStaff, BindingResult result) {
 		ModelAndView modelAndView = new ModelAndView();
-		if (result.hasErrors() | serviceStaffServiceIml.userExist(serviceStaff) == true) {
+
+		if(commonService.checkEmail(serviceStaff.getEmail())){
 			modelAndView.addObject("userexist", "Konto z podanym adresem email już istenieje, podaj inny adress email");
+			modelAndView.setViewName("serviceRegistration");
+			return modelAndView;
+		}
+		if (result.hasErrors()) {
 			modelAndView.setViewName("serviceRegistration");
 		} else {
 			serviceStaffServiceIml.save(serviceStaff);
@@ -48,6 +64,8 @@ public class ServiceSaffController {
 
 	@GetMapping(value = "/home")
 	public String serviceHome(Model model){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("serviceStaff", serviceStaffRepository.findByEmail(authentication.getName()));
 		return "servicepage";
 	}
 
