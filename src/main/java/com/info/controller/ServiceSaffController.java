@@ -30,38 +30,6 @@ public class ServiceSaffController {
 	@Autowired
 	private ServiceStaffRepository serviceStaffRepository;
 
-	@Autowired
-	private CommonService commonService;
-
-	@GetMapping(value = "/serviceRegistration")
-	public ModelAndView serviceRegistration() {
-		ModelAndView modelAndView = new ModelAndView();
-		ServiceStaff serviceStaff = new ServiceStaff();
-        modelAndView.addObject("serviceStaff", serviceStaff);
-        modelAndView.setViewName("serviceRegistration");
-        return modelAndView;
-	}
-
-	@PostMapping(value = "/serviceRegistration")
-	public ModelAndView saveServiceStaff(@Valid ServiceStaff serviceStaff, BindingResult result) {
-		ModelAndView modelAndView = new ModelAndView();
-
-		if(commonService.checkEmail(serviceStaff.getEmail())){
-			modelAndView.addObject("userexist", "Konto z podanym adresem email już istenieje, podaj inny adress email");
-			modelAndView.setViewName("serviceRegistration");
-			return modelAndView;
-		}
-		if (result.hasErrors()) {
-			modelAndView.setViewName("serviceRegistration");
-		} else {
-			serviceStaffServiceIml.save(serviceStaff);
-			modelAndView.addObject("successMessage", "Poprawna rejstracja!");
-			modelAndView.addObject("serviceStaff", new ServiceStaff());
-			modelAndView.setViewName("serviceRegistration");
-		}
-		return modelAndView;
-	}
-
 	@GetMapping(value = "/home")
 	public String serviceHome(Model model){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

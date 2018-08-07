@@ -30,10 +30,6 @@
     <table class="table">
         <tbody>
         <tr>
-            <th scope="row">id</th>
-            <td th:text="${serviceStaff.id}"></td>
-        </tr>
-        <tr>
             <th scope="row">Imię</th>
             <td th:text="${serviceStaff.firstName}"></td>
         </tr>
@@ -42,12 +38,28 @@
             <td th:text="${serviceStaff.lastName}"></td>
         </tr>
         <tr>
-            <th scope="row">mail</th>
+            <th scope="row">Rodzaj służby</th>
+            <td th:text="${serviceStaff.typeService}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Dieta</th>
+            <td th:text="${serviceStaff.diet}"></td>
+        </tr>
+        <tr>
+            <th scope="row">email</th>
             <td th:text="${serviceStaff.email}"></td>
         </tr>
         <tr>
-            <th scope="row">Numer telefonu</th>
-            <td th:text="${serviceStaff.phonenumber}"></td>
+            <th scope="row">Hufiec</th>
+            <td th:text="${serviceStaff.troops}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Chorągiew</th>
+            <td th:text="${serviceStaff.ensign}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Data rejestracji</th>
+            <td th:text="${serviceStaff.data}"></td>
         </tr>
         </tbody>
     </table>
