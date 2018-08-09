@@ -45,13 +45,10 @@ public class TeamLeaderServiceImplTest {
         assertEquals(teamLeaderService.findByEmail(leader.getEmail()), leader);
     }
 
-
-
     @Test
     public void userDontExistTest() {
         assertFalse(teamLeaderService.userExist(teamLeader));
     }
-
 
     @Test
     public void userExistTest() {
