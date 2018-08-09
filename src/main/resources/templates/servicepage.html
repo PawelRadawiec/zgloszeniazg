@@ -26,6 +26,16 @@
     </div>
 </nav>
 
+<div class="container">
+    <h1>Witaj <td th:text="${serviceStaff.firstName}"></td></h1>
+    <hr>
+    <div class="panel-group" style="margin-top:40px">
+        <div class="btn-group">
+            <a th:href="@{'/service/edit/' + ${serviceStaff.id}}" class="btn btn-info" >Edytuj konto</a>
+        </div>
+    </div>
+</div>
+
 <div class = "container">
     <table class="table">
         <tbody>

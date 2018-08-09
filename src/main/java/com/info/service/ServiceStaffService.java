@@ -10,5 +10,9 @@ public interface ServiceStaffService {
 	void save(ServiceStaff serviceStaff);
 
 	boolean userExist(ServiceStaff serviceStaff);
+
+	ServiceStaff updateAccount(ServiceStaff serviceStaff);
+
+	ServiceStaff getStaffById(int id);
 }
  
