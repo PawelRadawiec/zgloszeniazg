@@ -48,7 +48,6 @@ public class TeamLeader {
     @Column(name = "role")
     private String role;
 
-
     @Column(name = "active")
     private Long active;
     

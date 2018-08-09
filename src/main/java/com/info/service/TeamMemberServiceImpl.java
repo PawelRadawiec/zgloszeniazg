@@ -50,13 +50,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Override
     public void editTeamMember(TeamMember teamMember, int id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        TeamLeader teamLeader = teamLeaderRepository.findByEmail(authentication.getName());
         memberRepository.editUser(teamMember.getFirstName(), teamMember.getLastName(), teamMember.getHomeCity(),
                 teamMember.getStreet(), teamMember.getPhoneNumber(), teamMember.getTeamLeaderPhone(), teamMember.getMealCategory(),
                 teamMember.getId());
-
-        //memberRepository.save(teamMember);
     }
 
     @Override

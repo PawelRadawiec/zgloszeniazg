@@ -104,18 +104,33 @@
                             class="text-danger"></label>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label for="typeService">Chorągiew</label>
-                        <input type="text" th:field="*{ensign}" placeholder="Chorągiew"
-                               class="form-control" /> <label
-                            th:if="${#fields.hasErrors('ensign')}" th:errors="*{ensign}"
-                            class="text-danger"></label>
+                        <select th:field="*{ensign}" class="form-control">
+                            <option th:value="Białostocka">Chorągiew Białostocka</option>
+                            <option th:value="Dolnośląska">Chorągiew Dolnośląska</option>
+                            <option th:value="Gdańska">Chorągiew Gdańska</option>
+                            <option th:value="Kielecka">Chorągiew Kielecka</option>
+                            <option th:value="Krakowska">Chorągiew Krakowska</option>
+                            <option th:value="Kujawsko-Pomorska">Chorągiew Kujawsko-Pomorska</option>
+                            <option th:value="Lubelska">Chorągiew Lubelska</option>
+                            <option th:value="Łódzka">Chorągiew Łódzka</option>
+                            <option th:value="Mazowiecka">Chorągiew Mazowiecka</option>
+                            <option th:value="Opolska">Chorągiew Opolska</option>
+                            <option th:value="Podkarpacka">Chorągiew Podkarpacka</option>
+                            <option th:value="Stołeczna">Chorągiew Stołeczna </option>
+                            <option th:value="Śląska">Chorągiew Śląska</option>
+                            <option th:value="Warmińsko-Mazurska">Chorągiew Warmińsko-Mazurska</option>
+                            <option th:value="Wielkopolska">Chorągiew Wielkopolska</option>
+                            <option th:value="Zachodniopomorska">Chorągiew Zachodniopomorska</option>
+                            <option th:value="Ziemi-Lubuskiejw">Chorągiew Ziemi Lubuskiej</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" th:if="${path == null}">
                     <div class="col-sm-9">
                         <label for="typeService">Hasło</label>
                         <input type="password" th:field="*{password}" placeholder="Hasło"

@@ -2,6 +2,7 @@ package com.info.controller;
 
 import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
+import com.info.service.CommonService;
 import com.info.service.TeamLeaderService;
 import com.info.service.TeamMemberService;
 import com.info.service.XlsxReport;
@@ -36,6 +37,9 @@ public class TeamLeaderController {
     @Autowired
     private XlsxReport xlsxReport;
 
+    @Autowired
+    private CommonService commonService;
+
 
     @RequestMapping(value="/registration", method = RequestMethod.GET)
     public ModelAndView registration(){
@@ -49,8 +53,12 @@ public class TeamLeaderController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid TeamLeader teamLeader, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        if(bindingResult.hasErrors() | teamLeaderService.userExist(teamLeader) == true){
+        if(commonService.checkEmail(teamLeader.getEmail())){
             modelAndView.addObject("userexist", "Konto z podanym adresem email już istenieje, podaj inny adress email");
+            modelAndView.setViewName("registration");
+            return modelAndView;
+        }
+        if(bindingResult.hasErrors()){
             modelAndView.setViewName("registration");
         }else{
             teamLeaderService.save(teamLeader);

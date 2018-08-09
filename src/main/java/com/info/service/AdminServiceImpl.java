@@ -42,7 +42,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<TeamLeader> getAllTeamLeader() {
-        int size = adminTeamLeaderRepository.getAll().size();
         return adminTeamLeaderRepository.getAll();
     }
 
