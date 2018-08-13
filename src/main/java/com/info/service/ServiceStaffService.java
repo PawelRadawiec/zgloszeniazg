@@ -11,8 +11,8 @@ public interface ServiceStaffService {
 
 	boolean userExist(ServiceStaff serviceStaff);
 
-	ServiceStaff updateAccount(ServiceStaff serviceStaff);
+	ServiceStaff updateAccount(ServiceStaff serviceStaff, Long id);
 
-	ServiceStaff getStaffById(int id);
+	ServiceStaff getStaffById(Long id);
 }
  

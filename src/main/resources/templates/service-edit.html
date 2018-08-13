@@ -36,9 +36,8 @@
 <div class="container">
     <div class="row top-buffer">
         <div class="col-md-6 col-md-offset-3">
-            <h2 th:if="${path == null}">Zgłoszenia służb</h2>
-            <h2 th:if="${path != null}">Edytuj konto</h2>
-            <form autocomplete="off" action="#" th:action="@{/serviceRegistration}"
+            <h2>Edytuj konto</h2>
+            <form autocomplete="off" action="#" th:action="@{/service/edit}"
                   th:object="${serviceStaff}" method="post" class="form-horizontal"
                   role="form">
 
@@ -66,13 +65,13 @@
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label for="typeService">Rodzaj służby</label>
-                    <select th:field="*{typeService}" class="form-control">
-                        <option th:value="program">Program</option>
-                        <option th:value="recepcja">Recepcja</option>
-                        <option th:value="promocja">Promocja</option>
-                        <option th:value="kwaterka">Służba kwatermistrzowska</option>
-                        <option th:value="HSZ">Harcerska Służba Zabezpieczenia</option>
-                    </select>
+                        <select th:field="*{typeService}" class="form-control">
+                            <option th:value="program">Program</option>
+                            <option th:value="recepcja">Recepcja</option>
+                            <option th:value="promocja">Promocja</option>
+                            <option th:value="kwaterka">Służba kwatermistrzowska</option>
+                            <option th:value="HSZ">Harcerska Służba Zabezpieczenia</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -83,16 +82,6 @@
                             <option th:value="wegetariańska">Wegetariańska</option>
                             <option th:value="bezglutenowa">Bezglutenowa</option>
                         </select>
-                    </div>
-                </div>
-
-                <div class="form-group" th:if="${path == null}">
-                    <div class="col-sm-9">
-                        <label for="typeService">Email</label>
-                        <input type="text" th:field="*{email}" placeholder="email"
-                               class="form-control" /> <label
-                            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                            class="text-danger">test</label> <p class="text-danger" th:text="${userexist}" />
                     </div>
                 </div>
 
@@ -131,29 +120,24 @@
                     </div>
                 </div>
 
-                <div class="form-group" th:if="${path == null}">
-                    <div class="col-sm-9">
-                        <label for="typeService">Hasło</label>
-                        <input type="password" th:field="*{password}" placeholder="Hasło"
-                               class="form-control" /> <label
-                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                            class="text-danger"></label>
-                    </div>
-                </div>
-
-                <div class="form-group" th:if="${path == null}">
-                    <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Zarejestruj się</button>
-                    </div>
-                </div>
-                <div class="form-group"  th:if="${path != null}">
+                <div class="form-group">
                     <div class="col-sm-9">
                         <button type="submit" class="btn btn-primary btn-block">Edytuj konto</button>
                     </div>
                 </div>
-
-                <span th:utext="${successMessage}"></span>
-
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <a th:href="@{/service/home}"  class="btn btn-success"> <i class="fa fa-arrow-circle-o-left">
+                        </i>&nbsp;Powrót </a>
+                    </div>
+                </div>
+                <div class="form-group" th:if="${successMessage != null}">
+                    <div class="col-sm-9">
+                        <div class="alert alert-success">
+                            <strong th:utext="${successMessage}"></strong>
+                        </div>
+                    </div>
+                </div>
 
             </form>
         </div>
