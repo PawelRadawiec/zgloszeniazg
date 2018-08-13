@@ -14,7 +14,6 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 @Table(name = "service_staff")
 public class ServiceStaff {
-
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,9 +57,7 @@ public class ServiceStaff {
 	private String data;
 
 	@Column(name = "role")
-	private String role;
-
-	public ServiceStaff() {
+	private String role;	public ServiceStaff() {
 	}
 
 	public Long getId() {

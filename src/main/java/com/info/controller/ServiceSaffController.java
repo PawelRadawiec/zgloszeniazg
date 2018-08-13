@@ -2,6 +2,7 @@ package com.info.controller;
 
 import javax.validation.Valid;
 
+import com.info.model.StaffUpdate;
 import com.info.repository.ServiceStaffRepository;
 import com.info.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,29 +42,24 @@ public class ServiceSaffController {
 		return "servicepage";
 	}
 
-	@GetMapping(value = "/edit/{id}")
-	public String edit(Model model, @PathVariable("id") int id){
-		ServiceStaff serviceStaff = serviceStaffServiceIml.getStaffById(id);
-		model.addAttribute("path", "service");
-		model.addAttribute("serviceStaff", serviceStaff);
-		return "serviceRegistration";
+	@GetMapping(value = "/edit")
+	public String edit(Model model){
+		model.addAttribute("serviceStaff", serviceStaffServiceIml.setStaffUpdate());
+		return "service-edit";
 	}
 
 	@PostMapping(value = "/edit")
-	public String editAccount(@Valid ServiceStaff serviceStaff, BindingResult result, Model model){
-		model.addAttribute("path", "service");
-		if(commonService.checkEmail(serviceStaff.getEmail())){
-			model.addAttribute("userexist", "Konto z podanym adresem email już istenieje, podaj inny adress email");
-			return "serviceRegistration";
-		}
+	public String editAccount(@Valid StaffUpdate serviceStaff, BindingResult result, Model model){
 		if (result.hasErrors()) {
-			return "serviceRegistration";
+			return "service-edit";
 		} else {
-			serviceStaffServiceIml.updateAccount(serviceStaff);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			ServiceStaff fromAuth = serviceStaffRepository.findByEmail(authentication.getName());
+			serviceStaffServiceIml.editAccount(serviceStaff, fromAuth.getId());
 			model.addAttribute("successMessage", "Konto zostało edytowane!");
 			model.addAttribute("serviceStaff", new ServiceStaff());
 		}
-		return "serviceRegistration";
+		return "service-edit";
 	}
 
 }

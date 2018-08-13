@@ -2,8 +2,11 @@ package com.info.service;
 
 import com.info.model.Roles;
 import com.info.model.ServiceStaff;
+import com.info.model.StaffUpdate;
 import com.info.repository.ServiceStaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,18 +41,44 @@ public class ServiceStaffServiceIml implements ServiceStaffService {
     }
 
     @Override
-    public ServiceStaff getStaffById(int id){
+    public ServiceStaff getStaffById(Long id){
         return serviceRepository.getById(id);
     }
 
     @Override
-    public ServiceStaff updateAccount(ServiceStaff serviceStaff) {
-        ServiceStaff staff = serviceRepository.updateAccount(serviceStaff.getFirstName(),
+    public ServiceStaff updateAccount(ServiceStaff serviceStaff, Long id) {
+        ServiceStaff staff =  new ServiceStaff();
+                serviceRepository.updateAccount(serviceStaff.getFirstName(),
                 serviceStaff.getLastName(), serviceStaff.getTypeService(),
                 serviceStaff.getDiet(), serviceStaff.getTroops(),
-                serviceStaff.getEnsign(), serviceStaff.getId());
+                serviceStaff.getEnsign(), id.intValue());
         return staff;
     }
+
+
+    public void editAccount(StaffUpdate serviceStaff, Long id) {
+        serviceRepository.updateAccount(serviceStaff.getFirstName(),
+                serviceStaff.getLastName(), serviceStaff.getTypeService(),
+                serviceStaff.getDiet(), serviceStaff.getTroops(),
+                serviceStaff.getEnsign(), id.intValue());
+    }
+
+    public StaffUpdate setStaffUpdate(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        ServiceStaff fromAuth = serviceRepository.findByEmail(authentication.getName());
+        ServiceStaff staff = getStaffById(fromAuth.getId());
+
+        StaffUpdate serviceStaff = new StaffUpdate();
+        serviceStaff.setId(staff.getId());
+        serviceStaff.setFirstName(staff.getFirstName());
+        serviceStaff.setLastName(staff.getLastName());
+        serviceStaff.setDiet(staff.getDiet());
+        serviceStaff.setEnsign(staff.getEnsign());
+        serviceStaff.setTroops(staff.getTroops());
+
+        return serviceStaff;
+    }
+
 
     @Override
     public boolean userExist(ServiceStaff serviceStaff) {
