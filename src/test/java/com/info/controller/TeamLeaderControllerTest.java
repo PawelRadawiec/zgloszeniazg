@@ -1,11 +1,9 @@
 package com.info.controller;
 
-import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
-import com.info.service.TeamLeaderServiceImpl;
-import com.info.service.TeamMemberServiceImpl;
+import com.info.service.impl.TeamLeaderServiceImpl;
+import com.info.service.impl.TeamMemberServiceImpl;
 import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -13,9 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
 
 public class TeamLeaderControllerTest {
 

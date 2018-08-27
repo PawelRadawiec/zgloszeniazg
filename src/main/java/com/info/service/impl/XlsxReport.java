@@ -1,4 +1,4 @@
-package com.info.service;
+package com.info.service.impl;
 
 import com.info.configuration.MyAppUserDetailsService;
 import com.info.model.Admin;

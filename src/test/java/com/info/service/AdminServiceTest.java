@@ -6,6 +6,8 @@ import com.info.repository.AdminRepository;
 import com.info.repository.AdminTeamLeaderRepository;
 import com.info.repository.AdminTeamMemberRepository;
 import com.info.repository.TeamMemberRepository;
+import com.info.service.impl.AdminServiceImpl;
+import com.info.service.impl.TeamMemberServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

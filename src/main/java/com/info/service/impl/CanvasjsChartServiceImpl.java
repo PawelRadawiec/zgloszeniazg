@@ -1,6 +1,7 @@
-package com.info.service;
+package com.info.service.impl;
 
 import com.info.repository.CanvasjsChartDao;
+import com.info.service.CanvasjsChartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

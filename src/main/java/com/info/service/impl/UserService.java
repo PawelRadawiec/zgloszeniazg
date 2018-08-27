@@ -1,6 +1,7 @@
-package com.info.service;
+package com.info.service.impl;
 
 import com.info.model.User;
+import com.info.model.UserDto;
 import com.info.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -62,5 +63,13 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).get();
     }
 
+    public User save(UserDto user){
+        User newUser = new User();
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        newUser.setAge(user.getAge());
+        newUser.setSalary(user.getSalary());
+        return userRepository.save(newUser);
+    }
 
 }

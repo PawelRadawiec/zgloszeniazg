@@ -5,6 +5,7 @@ import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
 import com.info.repository.TeamLeaderRepository;
 import com.info.repository.TeamMemberRepository;
+import com.info.service.impl.TeamMemberServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.ArrayList;
 import java.util.List;
