@@ -97,14 +97,4 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping(value = "teamleader/getall")
-    public String getAll(){
-        return "index";
-    }
-
-    @GetMapping(value = "/getall2")
-    public String getAll2(){
-        return "index2";
-    }
-
 }
