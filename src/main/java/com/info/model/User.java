@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -31,7 +32,13 @@ public class User {
             @JoinColumn(name = "ROLE_ID") })
     private Set<Role> roles;
 
-    public User(){ }
+    public User(){
+
+    }
+
+    public User(long id){
+        this.id = id;
+    }
 
 
     public long getId() {

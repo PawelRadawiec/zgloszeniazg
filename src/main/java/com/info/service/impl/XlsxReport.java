@@ -1,6 +1,5 @@
 package com.info.service.impl;
 
-import com.info.configuration.MyAppUserDetailsService;
 import com.info.model.Admin;
 import com.info.model.TeamLeader;
 import com.info.model.TeamMember;

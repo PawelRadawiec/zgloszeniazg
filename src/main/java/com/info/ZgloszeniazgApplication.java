@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
+//@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 public class ZgloszeniazgApplication extends WebMvcAutoConfiguration {
 
     public static void main(String[] args) {

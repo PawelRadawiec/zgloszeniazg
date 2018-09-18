@@ -16,25 +16,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Service
+@Service(value = "userService")
 public class UserService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userDao;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user  = userRepository.findByUsername(username);
+        User user = userDao.findByUsername(username);
         if(user == null){
-            throw new UsernameNotFoundException("Invalid username or password");
+            throw new UsernameNotFoundException("Invalid username or password.");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
     }
 
-    private Set getAuthority(User user){
+    private Set getAuthority(User user) {
         Set authorities = new HashSet<>();
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
@@ -42,34 +42,31 @@ public class UserService implements UserDetailsService {
         return authorities;
     }
 
-
-    public List<User> findAll() {
-        List<User> list = new ArrayList<>();
-        userRepository.findAll().iterator().forEachRemaining(list::add);
+    public List findAll() {
+        List list = new ArrayList<>();
+        userDao.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
 
-
-    public void delete(long id){
-        userRepository.deleteById(id);
+    public void delete(long id) {
+        userDao.deleteById(id);
     }
 
-
-    public User findOne(String username){
-        userRepository.findByUsername(username);
+    public User findOne(String username) {
+        return userDao.findByUsername(username);
     }
 
-    public User findById(Long id){
-        return userRepository.findById(id).get();
+    public User findById(Long id) {
+        return userDao.findById(id).get();
     }
 
-    public User save(UserDto user){
+    public User save(UserDto user) {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         newUser.setAge(user.getAge());
         newUser.setSalary(user.getSalary());
-        return userRepository.save(newUser);
+        return userDao.save(newUser);
     }
 
 }
