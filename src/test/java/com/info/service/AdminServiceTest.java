@@ -66,8 +66,8 @@ public class AdminServiceTest {
     @Test
     public void getDetails(){
         TeamLeader teamLeader = new TeamLeader();
-        when(adminTeamLeaderRepository.getTeamLeaderById(anyInt())).thenReturn(teamLeader);
-        assertEquals(adminService.getDetails(anyInt()), teamLeader);
+        when(adminTeamLeaderRepository.getTeamLeaderById(anyLong())).thenReturn(teamLeader);
+        assertEquals(adminService.getDetails(anyLong()), teamLeader);
     }
 
     @Test

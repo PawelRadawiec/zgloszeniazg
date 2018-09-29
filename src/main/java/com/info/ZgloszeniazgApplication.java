@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 public class ZgloszeniazgApplication extends WebMvcAutoConfiguration {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SpringApplication.run(ZgloszeniazgApplication.class, args);
     }
 }

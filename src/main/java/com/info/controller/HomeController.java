@@ -50,7 +50,7 @@ public class HomeController {
         if(admin != null){
             return new ModelAndView("redirect:" + "/admin");
         } else if(teamLeader != null && teamLeader.getRole().equals("TEAM_LEADER")) {
-            return new ModelAndView("redirect:" + "/teamleader");
+            return new ModelAndView("redirect:" + "/teamleader/getall");
         }else if(serviceStaff != null && serviceStaff.getRole().equals("SERVICE_STAFF")){
             return new ModelAndView("redirect:" + "/service/home");
         }else {

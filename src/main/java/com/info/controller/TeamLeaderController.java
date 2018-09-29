@@ -70,13 +70,12 @@ public class TeamLeaderController {
 
     }
 
-    @GetMapping(value = "/teamleader")
+    @GetMapping(value = "/teamleader/getall")
     public ModelAndView teamLeaderPage(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        modelAndView.addObject("teamLeaderName", teamLeaderService.helloTeamLeader());
-        modelAndView.addObject("memberlist", teamMemberService.getAllMembers(authentication.getName()));
-        modelAndView.setViewName("teamleaderpage");
+        modelAndView.addObject("teamLeader", teamLeaderService.findByEmail(authentication.getName()));
+        modelAndView.setViewName("newteamleader");
         return modelAndView;
     }
 
@@ -136,7 +135,7 @@ public class TeamLeaderController {
     public ModelAndView deleteMember(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
-        modelAndView.setViewName("redirect:/teamleader");
+        modelAndView.setViewName("redirect:/teamleader/getall");
         return modelAndView;
     }
 
@@ -144,7 +143,7 @@ public class TeamLeaderController {
     public ModelAndView deleteMemberById(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
         teamMemberService.deleteById(id);
-        modelAndView.setViewName("redirect:/teamleader");
+        modelAndView.setViewName("redirect:/teamleader/getall");
         return modelAndView;
     }
 

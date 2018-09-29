@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Drużynowy</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="/js/datatable.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="">zgloszeniazg</a>
+        </div>
+        <ul class="nav navbar-nav">
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Wyloguj się</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h3>Witaj
+        <td th:text="${teamLeader.firstName}"></td>
+    </h3>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">Imię</th>
+            <td th:text="${teamLeader.firstName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Nazwisko</th>
+            <td th:text="${teamLeader.lastName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">email</th>
+            <td th:text="${teamLeader.email}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Drużyna</th>
+            <td th:text="${teamLeader.teamName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Hufiec</th>
+            <td th:text="${teamLeader.troops}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="panel-group" style="margin-top:40px">
+        <div class="form-group">
+            <div class="col-sm-9">
+                <a href="/teamleader/registerTeamMember" class="btn btn-success"> <i
+                        class="fa fa-arrow-circle-o-left"></i>&nbsp;Zarejestruj członka drużyny</a>
+                <a href="/teamleader/getFile" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Pobierz
+                    listę</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <hr>
+</div>
+<div class="container-fluid">
+    <div class="col-md-12">
+       <h3>Lista drużyny</h3>
+        <hr>
+        <table id="teammemberTable" class="row-border" style="width:100%">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Miasto</th>
+                <th>Ulica</th>
+                <th>Telefon</th>
+                <th>Telefon drużynowego</th>
+                <th>Dieta</th>
+                <th>Drużyna</th>
+                <th>Data rejestracji</th>
+                <th>Opcje</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+</body>
+</html>

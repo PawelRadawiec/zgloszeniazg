@@ -11,7 +11,7 @@ import java.util.List;
 public interface AdminService {
     List<TeamLeader> getAllTeamLeader();
     List<TeamMember> getAllTeamMember();
-    Object getDetails(int id);
+    Object getDetails(Long id);
     List<TeamMember> getTeamMembersByLeader(String teamLeaderEmail);
     List<TeamLeader> searchByLastName(SearchModel searchModel);
     TeamMember getById(int id);

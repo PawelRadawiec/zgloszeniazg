@@ -30,11 +30,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/rest/**").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/serviceRegistration").permitAll()
-                .antMatchers("/home").permitAll()
-                .antMatchers("/rest/**").permitAll()
+                .antMatchers("/home/**").permitAll()
                 .antMatchers("/serviceRegistration").permitAll()
                 .antMatchers("/service/**").hasAuthority("SERVICE_STAFF")
                 .antMatchers("/teamleader/edit").hasAuthority("TEAM_LEADER")
