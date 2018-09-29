@@ -74,8 +74,8 @@ public class TeamLeaderController {
     public ModelAndView teamLeaderPage(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        modelAndView.addObject("teamLeaderName", teamLeaderService.helloTeamLeader());
-        modelAndView.setViewName("index");
+        modelAndView.addObject("teamLeader", teamLeaderService.findByEmail(authentication.getName()));
+        modelAndView.setViewName("newteamleader");
         return modelAndView;
     }
 

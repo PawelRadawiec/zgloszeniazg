@@ -83,7 +83,7 @@ public class AdminController {
 //    }
 
     @GetMapping(value = "/details/{id}/{email}")
-    public ModelAndView getDetails(@PathVariable("id") int id,
+    public ModelAndView getDetails(@PathVariable("id") Long id,
                                    @PathVariable("email") String teamLeaderMail) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("teamLeader", adminService.getDetails(id));

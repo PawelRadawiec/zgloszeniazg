@@ -15,7 +15,7 @@ public interface AdminTeamLeaderRepository extends JpaRepository<TeamLeader, Lon
     List<TeamLeader> getAll();
 
     @Query(value = "SELECT * FROM TEAM_LEADER WHERE id=?", nativeQuery = true)
-    TeamLeader getTeamLeaderById(int id);
+    TeamLeader getTeamLeaderById(Long id);
 
     @Query(value = "SELECT * FROM TEAM_LEADER WHERE LOWER(LAST_NAME)=LOWER(?) ", nativeQuery = true)
     List<TeamLeader> searchByLastName(@Param("lastName") String lastName);

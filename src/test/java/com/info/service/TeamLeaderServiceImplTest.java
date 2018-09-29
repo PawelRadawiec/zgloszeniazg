@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class TeamLeaderServiceImplTest {
 
-
     @Mock
     TeamLeaderRepository teamLeaderRepository;
 
@@ -27,7 +26,7 @@ public class TeamLeaderServiceImplTest {
     TeamLeaderServiceImpl teamLeaderService;
 
     @Spy
-    TeamLeader teamLeader = new TeamLeader();
+    TeamLeader teamLeader;
 
 
     @Test

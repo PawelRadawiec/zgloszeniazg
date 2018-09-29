@@ -30,28 +30,52 @@
 </nav>
 
 <div class="container">
-    <hr>
-    <h1>Witaj
-        <td th:text="${teamLeaderName}"></td>
-    </h1>
+    <h3>Witaj
+        <td th:text="${teamLeader.firstName}"></td>
+    </h3>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">Imię</th>
+            <td th:text="${teamLeader.firstName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Nazwisko</th>
+            <td th:text="${teamLeader.lastName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">email</th>
+            <td th:text="${teamLeader.email}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Drużyna</th>
+            <td th:text="${teamLeader.teamName}"></td>
+        </tr>
+        <tr>
+            <th scope="row">Hufiec</th>
+            <td th:text="${teamLeader.troops}"></td>
+        </tr>
+        </tbody>
+    </table>
     <div class="panel-group" style="margin-top:40px">
         <div class="form-group">
             <div class="col-sm-9">
                 <a href="/teamleader/registerTeamMember" class="btn btn-success"> <i
                         class="fa fa-arrow-circle-o-left"></i>&nbsp;Zarejestruj członka drużyny</a>
                 <a href="/teamleader/getFile" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Pobierz
-                    xlsx</a>
+                    listę</a>
             </div>
         </div>
     </div>
-    <hr>
 </div>
 <div class="container">
     <hr>
 </div>
 <div class="container-fluid">
     <div class="col-md-12">
-        <table id="teammemberTable" class="hover" style="width:100%">
+       <h3>Lista drużyny</h3>
+        <hr>
+        <table id="teammemberTable" class="row-border" style="width:100%">
             <thead>
             <tr>
                 <th>Id</th>

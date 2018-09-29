@@ -4,10 +4,7 @@ import com.info.model.Admin;
 import com.info.model.SearchModel;
 import com.info.model.TeamLeader;
 import com.info.model.TeamMember;
-import com.info.repository.AdminRepository;
-import com.info.repository.AdminTeamLeaderRepository;
-import com.info.repository.AdminTeamMemberRepository;
-import com.info.repository.TeamMemberRepository;
+import com.info.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -25,19 +22,22 @@ public class AdminServiceImpl implements AdminService {
     private AdminRepository adminRepository;
     private AdminTeamMemberRepository adminTeamMemberRepository;
     private TeamMemberServiceImpl teamMemberService;
+    private TeamLeaderRepository teamLeaderRepository;
 
 
     @Autowired
     public AdminServiceImpl(AdminTeamLeaderRepository adminTeamLeaderRepository,
                             TeamMemberRepository teamMemberRepository, AdminRepository adminRepository,
                             AdminTeamMemberRepository adminTeamMemberRepository,
-                            TeamMemberServiceImpl teamMemberService) {
+                            TeamMemberServiceImpl teamMemberService,
+                            TeamLeaderRepository teamLeaderRepository) {
 
         this.adminTeamLeaderRepository = adminTeamLeaderRepository;
         this.adminRepository = adminRepository;
         this.adminTeamMemberRepository = adminTeamMemberRepository;
         this.teamMemberService = teamMemberService;
         this.teamMemberRepository = teamMemberRepository;
+        this.teamLeaderRepository = teamLeaderRepository;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Object getDetails(int id) {
+    public Object getDetails(Long id) {
         TeamLeader teamLeader = adminTeamLeaderRepository.getTeamLeaderById(id);
         return teamLeader;
     }
@@ -87,6 +87,27 @@ public class AdminServiceImpl implements AdminService {
             return adminTeamMemberRepository.getMembersByData(surname);
         }
         return new ArrayList<>();
+    }
+
+
+    public TeamLeader editTeamLeader(TeamLeader updateLeader ,Long leaderId){
+        TeamLeader leaderById = adminTeamLeaderRepository.getTeamLeaderById(leaderId);
+
+        if(leaderById != null && updateLeader.getEmail().equalsIgnoreCase(leaderById.getEmail())){
+            teamLeaderRepository.editTeamLeader(updateLeader.getFirstName(), updateLeader.getLastName(), updateLeader.getTeamName(),
+                                                updateLeader.getPhonenumber(), updateLeader.getTroops(), leaderId);
+
+            List<TeamMember> teamMembers = teamMemberRepository.getAllMembers(leaderById.getEmail());
+            teamMembers.forEach(teamMember -> {
+                teamMember.setLeaderName(updateLeader.getFirstName() + " " +  updateLeader.getLastName());
+                teamMember.setTeamLeaderPhone(updateLeader.getPhonenumber());
+                teamMember.setTeamName(updateLeader.getTeamName());
+                teamMemberRepository.editUser(teamMember.getFirstName(), teamMember.getLastName(), teamMember.getHomeCity(),
+                        teamMember.getStreet(), teamMember.getPhoneNumber(), teamMember.getTeamLeaderPhone(), teamMember.getMealCategory(),
+                        teamMember.getId());
+            });
+        }
+        return updateLeader;
     }
 
 
